@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+
+{% block title %}NutriShop - Intelligent Grocery Planning{% endblock %}
+{% block description %}Scientifically optimized grocery lists that guarantee complete nutrition, within your budget.{%
+endblock %}
+
+{% block content %}
+<!-- ================================================================
+     HERO SECTION — Emotional Hook
+     ================================================================ -->
+<header class="hero">
+    <div class="hero__content">
+        <div class="logo-mark u-mb-md">
+            <img src="/static/images/logo.png?v=16" alt="" height="40"
+                style="width: auto; vertical-align: middle; margin-right: 8px;">
+            <span style="font-weight: 700; font-size: 1.25rem;">NutriShop</span>
+        </div>
+
+        <h1>Are you actually<br>getting every nutrient<br>you need?</h1>
+        <p class="hero__subtext">
+            Most people aren't — and they don't know it. NutriShop builds a weekly
+            shopping list that <strong>mathematically guarantees</strong> complete nutrition,
+            within your budget.
+        </p>
+
+        <ul class="hero__features">
+            <li>
+                <span class="check-icon">✓</span> Every vitamin & mineral covered
+            </li>
+            <li>
+                <span class="check-icon">✓</span> Budget-optimized across UK supermarkets
+            </li>
+            <li>
+                <span class="check-icon">✓</span> 100% free — no account needed
+            </li>
+        </ul>
+
+        <a href="/calculator" class="btn btn--primary btn--lg" id="hero-cta">
+            Build My Shopping List →
+        </a>
+    </div>
+
+    <div class="hero__image">
+        <img src="/static/images/hero_basket.png?v=5"
+            alt="Wicker basket overflowing with healthy foods like salmon, broccoli, and fresh produce" width="500"
+            height="400">
+    </div>
+</header>
+
+<!-- ================================================================
+     OUTPUT PREVIEW — Show what users get
+     ================================================================ -->
+<section class="preview-section" aria-labelledby="preview-heading">
+    <div class="preview-label">Sample Result</div>
+
+    <h2 id="preview-heading" class="section-heading u-mb-xl">
+        Here's what your shopping list looks like
+    </h2>
+
+
+    <div class="preview-layout">
+        <!-- Left: Shopping List -->
+        <div class="preview-main">
+            <!-- Sample shopping list -->
+            <div class="preview-list glass-panel">
+                <h3 class="preview-list__title">Your Weekly Shopping List</h3>
+                <p class="preview-list__subtitle u-text-muted u-mb-md">Optimized for a balanced, healthy diet</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Food</th>
+                            <th scope="col">Packs</th>
+                            <th scope="col">Weekly Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🐟 Salmon Fillets</td>
+                            <td class="data-table__muted">1 × 240g</td>
+                            <td class="u-font-bold">240g</td>
+                        </tr>
+                        <tr>
+                            <td>🍗 Chicken Breast</td>
+                            <td class="data-table__muted">1 × 500g</td>
+                            <td class="u-font-bold">500g</td>
+                        </tr>
+                        <tr>
+                            <td>🥦 Broccoli</td>
+                            <td class="data-table__muted">1 × 350g</td>
+                            <td class="u-font-bold">350g</td>
+                        </tr>
+                        <tr>
+                            <td>🍚 Brown Rice</td>
+                            <td class="data-table__muted">1 × 1kg</td>
+                            <td class="u-font-bold">1,000g</td>
+                        </tr>
+                        <tr>
+                            <td>🥚 Free Range Eggs</td>
+                            <td class="data-table__muted">1 × 10 pack</td>
+                            <td class="u-font-bold">10 eggs</td>
+                        </tr>
+                        <tr>
+                            <td>🥬 Spinach</td>
+                            <td class="data-table__muted">1 × 200g</td>
+                            <td class="u-font-bold">200g</td>
+                        </tr>
+                        <tr>
+                            <td>🫘 Red Lentils</td>
+                            <td class="data-table__muted">1 × 500g</td>
+                            <td class="u-font-bold">500g</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right: Nutrient compliance badges -->
+        <div class="preview-sidebar">
+            <h3 class="preview-sidebar__title">Nutrient Coverage</h3>
+            <div class="preview-nutrients animate-stagger">
+                <div class="preview-nutrient" style="animation-delay: 0.1s;">
+                    <span class="preview-nutrient__name">Vitamin A</span>
+                    <span class="status-badge status-badge--success">✓ 112%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.15s;">
+                    <span class="preview-nutrient__name">Vitamin C</span>
+                    <span class="status-badge status-badge--success">✓ 198%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.2s;">
+                    <span class="preview-nutrient__name">Vitamin D</span>
+                    <span class="status-badge status-badge--success">✓ 105%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.25s;">
+                    <span class="preview-nutrient__name">Iron</span>
+                    <span class="status-badge status-badge--success">✓ 134%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.3s;">
+                    <span class="preview-nutrient__name">Calcium</span>
+                    <span class="status-badge status-badge--success">✓ 108%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.35s;">
+                    <span class="preview-nutrient__name">Zinc</span>
+                    <span class="status-badge status-badge--success">✓ 121%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.4s;">
+                    <span class="preview-nutrient__name">Magnesium</span>
+                    <span class="status-badge status-badge--success">✓ 115%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.45s;">
+                    <span class="preview-nutrient__name">Potassium</span>
+                    <span class="status-badge status-badge--success">✓ 102%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.5s;">
+                    <span class="preview-nutrient__name">B12</span>
+                    <span class="status-badge status-badge--success">✓ 287%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.55s;">
+                    <span class="preview-nutrient__name">Folate</span>
+                    <span class="status-badge status-badge--success">✓ 143%</span>
+                </div>
+                <div class="preview-nutrient" style="animation-delay: 0.6s;">
+                    <span class="preview-nutrient__name">Fiber</span>
+                    <span class="status-badge status-badge--success">✓ 127%</span>
+                </div>
+                <div class="preview-nutrient preview-nutrient--highlight">
+                    <span class="preview-nutrient__name u-font-bold">27+ nutrients</span>
+                    <span class="status-badge status-badge--success">All ✓</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================================================================
+     HOW IT WORKS — Visual Step Mockups
+     ================================================================ -->
+<section class="steps-section" aria-labelledby="steps-heading">
+    <h2 id="steps-heading" class="section-heading u-mb-xl">
+        Three steps. Sixty seconds. Complete nutrition.
+    </h2>
+
+    <div class="steps-grid">
+        <!-- Step 1 -->
+        <div class="step-card glass-panel animate-fade-in-up">
+            <div class="step-indicator">1</div>
+            <h3 class="step-card__title">Quick Profile</h3>
+            <p class="step-card__desc">Just 4 fields — age, gender, weight, and height. That's it.</p>
+            <div class="step-card__mockup">
+                <div class="mockup-field">
+                    <span class="mockup-label">Age</span>
+                    <span class="mockup-input">28</span>
+                </div>
+                <div class="mockup-field">
+                    <span class="mockup-label">Gender</span>
+                    <span class="mockup-input">Male</span>
+                </div>
+                <div class="mockup-field">
+                    <span class="mockup-label">Weight</span>
+                    <span class="mockup-input">75 kg</span>
+                </div>
+                <div class="mockup-field">
+                    <span class="mockup-label">Height</span>
+                    <span class="mockup-input">180 cm</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step connector -->
+        <div class="step-connector" aria-hidden="true">
+            <span class="step-connector__arrow">→</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card glass-panel animate-fade-in-up" style="animation-delay: 0.15s;">
+            <div class="step-indicator">2</div>
+            <h3 class="step-card__title">Set Your Goal</h3>
+            <p class="step-card__desc">Choose your activity level and whether you're cutting, maintaining, or bulking.
+            </p>
+            <div class="step-card__mockup">
+                <div class="mockup-field">
+                    <span class="mockup-label">Activity</span>
+                    <span class="mockup-input">Very Active</span>
+                </div>
+                <div class="mockup-field">
+                    <span class="mockup-label">Goal</span>
+                    <span class="mockup-input">Maintenance</span>
+                </div>
+                <div class="mockup-btn">Generate →</div>
+            </div>
+        </div>
+
+        <!-- Step connector -->
+        <div class="step-connector" aria-hidden="true">
+            <span class="step-connector__arrow">→</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card glass-panel animate-fade-in-up" style="animation-delay: 0.3s;">
+            <div class="step-indicator">3</div>
+            <h3 class="step-card__title">Your Optimized List</h3>
+            <p class="step-card__desc">A complete weekly shopping list with every nutrient verified.</p>
+            <div class="step-card__mockup step-card__mockup--result">
+                <div class="mockup-result-line">
+                    <span>🐟 Salmon</span>
+                    <span class="u-text-muted">480g</span>
+                </div>
+                <div class="mockup-result-line">
+                    <span>🥦 Broccoli</span>
+                    <span class="u-text-muted">700g</span>
+                </div>
+                <div class="mockup-result-line">
+                    <span>🥚 Eggs</span>
+                    <span class="u-text-muted">20 eggs</span>
+                </div>
+                <div class="mockup-result-badges">
+                    <span class="status-badge status-badge--success">27 nutrients ✓</span>
+                    <span class="status-badge status-badge--success">Budget ✓</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================================================================
+     TRUST SIGNALS
+     ================================================================ -->
+<section class="trust-bar" aria-label="Trust signals">
+    <div class="trust-item">
+        <span class="trust-icon">🔬</span>
+        <span>Based on NHS & EFSA guidelines</span>
+    </div>
+    <div class="trust-item">
+        <span class="trust-icon">📊</span>
+        <span>27+ nutrients tracked</span>
+    </div>
+    <div class="trust-item">
+        <span class="trust-icon">🆓</span>
+        <span>100% free, forever</span>
+    </div>
+    <div class="trust-item">
+        <span class="trust-icon">🔒</span>
+        <span>No account required</span>
+    </div>
+</section>
+
+<!-- ================================================================
+     FINAL CTA
+     ================================================================ -->
+<section class="final-cta u-text-center">
+    <h2 class="section-heading">Ready to eat complete?</h2>
+    <p class="u-text-muted u-mb-xl" style="font-size: 1.125rem;">
+        It takes 60 seconds. No signup. No payment. Just science.
+    </p>
+    <a href="/calculator" class="btn btn--primary btn--lg" id="final-cta">
+        Build My Shopping List →
+    </a>
+</section>
+{% endblock %}

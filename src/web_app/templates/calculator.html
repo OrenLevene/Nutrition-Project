@@ -1,0 +1,485 @@
+{% extends "base.html" %}
+
+{% block title %}Calculator - NutriShop{% endblock %}
+{% block description %}Calculate your personalized nutrient targets and generate an optimized shopping list.{% endblock
+%}
+
+{% block content %}
+<div class="content-grid u-mt-xl" x-data="nutritionApp()">
+    <!-- ================================================================
+         1. PROFILE INPUT FORM
+         ================================================================ -->
+    <section class="glass-panel animate-fade-in" aria-labelledby="profile-heading">
+        <div class="glass-panel__header">
+            <h2 id="profile-heading">Your Profile</h2>
+        </div>
+
+        <form @submit.prevent="calculateRanges" novalidate>
+            <div class="form-grid">
+                <!-- Age Input -->
+                <div class="form-group">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" id="age" class="form-input" x-model.number="form.age" required min="1"
+                        max="120" aria-describedby="age-hint">
+                    <span id="age-hint" class="form-hint">Years old</span>
+                </div>
+
+                <!-- Gender Select -->
+                <div class="form-group">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select id="gender" class="form-select" x-model="form.gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <!-- Weight Input -->
+                <div class="form-group">
+                    <label for="weight_kg" class="form-label">Weight (kg)</label>
+                    <input type="number" id="weight_kg" class="form-input" x-model.number="form.weight_kg" required
+                        step="0.1" min="20" max="300">
+                </div>
+
+                <!-- Height Input -->
+                <div class="form-group">
+                    <label for="height_cm" class="form-label">Height (cm)</label>
+                    <input type="number" id="height_cm" class="form-input" x-model.number="form.height_cm" required
+                        step="0.1" min="100" max="250">
+                </div>
+
+                <!-- Activity Level Select -->
+                <div class="form-group form-grid--full-width">
+                    <label for="activity_level" class="form-label tooltip-trigger" x-data="{ open: false }" @click.outside="open = false">
+                        Activity Level
+                        <span class="tooltip-icon" aria-hidden="true" @click="open = !open">?</span>
+                        <span class="tooltip-content" role="tooltip" :class="{ 'is-active': open }">
+                            Choose based on your typical weekly exercise routine
+                        </span>
+                    </label>
+                    <select id="activity_level" class="form-select" x-model="form.activity_level">
+                        <option value="sedentary">Sedentary (little or no exercise)</option>
+                        <option value="lightly_active">Lightly Active (1-3 days/week)</option>
+                        <option value="moderately_active">Moderately Active (3-5 days/week)</option>
+                        <option value="very_active">Very Active (6-7 days/week)</option>
+                        <option value="super_active">Super Active (intense + physical job)</option>
+                    </select>
+                </div>
+
+                <!-- Goal Select -->
+                <div class="form-group form-grid--full-width">
+                    <label for="goal" class="form-label tooltip-trigger" x-data="{ open: false }" @click.outside="open = false">
+                        Goal
+                        <span class="tooltip-icon" aria-hidden="true" @click="open = !open">?</span>
+                        <span class="tooltip-content" role="tooltip" :class="{ 'is-active': open }">
+                            Weight loss: -500 kcal | Maintenance: 0 | Muscle gain: +250 kcal
+                        </span>
+                    </label>
+                    <select id="goal" class="form-select" x-model="form.goal">
+                        <option value="loss">Weight Loss</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="gain">Muscle Gain</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="u-mt-xl">
+                <button type="submit" class="btn btn--primary btn--lg btn--full-width"
+                    :disabled="isLoading || isOptimizing">
+                    <span x-show="!isLoading && !isOptimizing">🛒 Generate My Shopping List</span>
+                    <span x-show="isLoading" class="u-flex-center">
+                        <span class="loading-spinner" aria-hidden="true"></span>
+                        <span class="u-ml-sm">Calculating targets...</span>
+                    </span>
+                    <span x-show="isOptimizing" class="u-flex-center">
+                        <span class="loading-spinner" aria-hidden="true"></span>
+                        <span class="u-ml-sm">Optimizing diet...</span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Error Message -->
+            <div x-show="error" x-cloak class="form-error u-mt-md" role="alert">
+                <span aria-hidden="true">⚠️</span>
+                <span x-text="error"></span>
+            </div>
+        </form>
+    </section>
+
+    <!-- ================================================================
+         2. CALCULATED RESULTS PANEL
+         ================================================================ -->
+    <section class="glass-panel animate-fade-in-up" x-show="results" x-cloak aria-labelledby="results-heading">
+        <div class="glass-panel__header">
+            <h2 id="results-heading">Target Daily Nutrients</h2>
+        </div>
+
+        <!-- Macro Stats Grid -->
+        <div class="stat-grid" role="list" aria-label="Macronutrient targets">
+            <div class="stat-card stat-card--calories" role="listitem">
+                <h3 class="stat-card__label">Calories</h3>
+                <p class="stat-card__value">
+                    <span x-text="Math.round(results?.calories_min || 0)"></span>
+                    – <span x-text="Math.round(results?.calories_max || 0)"></span>
+                </p>
+            </div>
+            <div class="stat-card stat-card--protein" role="listitem">
+                <h3 class="stat-card__label">Protein</h3>
+                <p class="stat-card__value">
+                    <span x-text="Math.round(results?.protein_min || 0)"></span>
+                    – <span x-text="Math.round(results?.protein_max || 0)"></span>g
+                </p>
+            </div>
+            <div class="stat-card stat-card--carbs" role="listitem">
+                <h3 class="stat-card__label">Carbs</h3>
+                <p class="stat-card__value">
+                    <span x-text="Math.round(results?.carbs_min || 0)"></span>
+                    – <span x-text="Math.round(results?.carbs_max || 0)"></span>g
+                </p>
+            </div>
+            <div class="stat-card stat-card--fats" role="listitem">
+                <h3 class="stat-card__label">Fats</h3>
+                <p class="stat-card__value">
+                    <span x-text="Math.round(results?.fats_min || 0)"></span>
+                    – <span x-text="Math.round(results?.fats_max || 0)"></span>g
+                </p>
+            </div>
+        </div>
+
+        <!-- Micronutrients Table -->
+        <div class="table-section u-mt-lg" x-data="{ expanded: false }">
+            <button type="button" class="table-section__header u-flex-between btn--full-width"
+                @click="expanded = !expanded" :aria-expanded="expanded" aria-controls="micronutrients-table">
+                <span>Micronutrients</span>
+                <span class="table-section__icon" :class="{ 'table-section--collapsed': !expanded }"
+                    aria-hidden="true">▼</span>
+            </button>
+
+            <table id="micronutrients-table" class="data-table" x-show="expanded" x-transition>
+                <thead>
+                    <tr>
+                        <th scope="col">Nutrient</th>
+                        <th scope="col">Min Target</th>
+                        <th scope="col">Max Limit</th>
+                        <th scope="col">Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="n in results?.micronutrients" :key="n.nutrient_name">
+                        <tr>
+                            <td x-text="n.nutrient_name"></td>
+                            <td class="data-table__highlight" x-text="n.min_value"></td>
+                            <td x-text="n.max_value !== null ? n.max_value : '—'"></td>
+                            <td class="data-table__muted" x-text="n.unit"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Optimization Error -->
+        <div x-show="optimizationError" x-cloak class="form-error u-mt-md" role="alert">
+            <span aria-hidden="true">⚠️</span>
+            <span x-text="optimizationError"></span>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         3. OPTIMIZATION RESULTS PANEL
+         ================================================================ -->
+    <section class="glass-panel animate-fade-in-up" x-show="optimizationResults" x-cloak aria-labelledby="diet-heading">
+        <div class="glass-panel__header u-flex-between">
+            <h2 id="diet-heading">Weekly Shopping List</h2>
+            <button type="button" class="btn" @click="exportResults" title="Export results as JSON">
+                📥 Export
+            </button>
+        </div>
+
+        <!-- Status Warning -->
+        <div x-show="optimizationResults?.status !== 'Optimal'" class="u-mb-md">
+            <p class="u-text-warning">
+                <span aria-hidden="true">⚠️</span>
+                Status: <span x-text="optimizationResults?.status"></span>
+                <template x-if="optimizationResults?.status !== 'Infeasible'">
+                    <span>(Could not perfectly meet all constraints)</span>
+                </template>
+            </p>
+        </div>
+
+        <!-- Infeasibility Analysis -->
+        <div x-show="optimizationResults?.infeasibility_analysis" class="u-mb-lg"
+            style="background: rgba(255,100,100,0.1); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,100,100,0.3);">
+            <h3 style="color: #ff6b6b; margin-bottom: 0.5rem;">❌ Why Infeasible?</h3>
+            <p x-text="optimizationResults?.infeasibility_analysis?.explanation" style="margin-bottom: 1rem;"></p>
+
+            <h4 style="margin-bottom: 0.5rem;">Most Demanding Nutrients:</h4>
+            <table class="data-table" style="font-size: 0.9rem;">
+                <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>Weekly Target</th>
+                        <th>Best Source</th>
+                        <th>Kcal Needed</th>
+                        <th>% of Budget</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="r in optimizationResults?.infeasibility_analysis?.most_problematic"
+                        :key="r.nutrient">
+                        <tr>
+                            <td x-text="r.nutrient"></td>
+                            <td x-text="r.weekly_target"></td>
+                            <td class="data-table__muted" x-text="r.best_source"></td>
+                            <td x-text="r.kcal_needed"></td>
+                            <td :class="{'u-text-warning': r.pct_of_budget > 30}">
+                                <span x-text="r.pct_of_budget"></span>%
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+            <p class="u-text-muted" style="margin-top: 0.5rem;">
+                Total min calories needed: <span
+                    x-text="optimizationResults?.infeasibility_analysis?.total_pct"></span>% of budget
+            </p>
+        </div>
+
+        <!-- GA Stats -->
+        <div x-show="optimizationResults?.daily_plans?.length > 0" class="stat-grid u-mb-lg" role="list">
+            <div class="stat-card" role="listitem">
+                <h3 class="stat-card__label">Unique Foods</h3>
+                <p class="stat-card__value" x-text="optimizationResults?.unique_foods || '-'"></p>
+            </div>
+            <div class="stat-card" role="listitem">
+                <h3 class="stat-card__label">Max Trio Reps</h3>
+                <p class="stat-card__value" x-text="optimizationResults?.max_trio_repetitions || '-'"></p>
+            </div>
+        </div>
+
+        <!-- Daily Meal Plans -->
+        <div x-show="optimizationResults?.daily_plans?.length > 0" class="u-mb-lg">
+            <h3 class="u-mb-sm">📅 Daily Meal Plans</h3>
+            <div class="daily-plans-grid" style="display: grid; gap: 1rem;">
+                <template x-for="day in optimizationResults?.daily_plans" :key="day.day">
+                    <div class="glass-panel" style="background: rgba(255,255,255,0.05); padding: 1rem;">
+                        <div class="u-flex-between u-mb-xs">
+                            <strong>Day <span x-text="day.day"></span></strong>
+                            <span class="u-text-muted"><span x-text="day.total_calories"></span> kcal</span>
+                        </div>
+                        <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem;">
+                            <template x-for="food in day.foods" :key="food.name">
+                                <li class="u-flex-between" style="margin-bottom: 0.25rem;">
+                                    <span x-text="food.name"></span>
+                                    <span class="u-text-muted">
+                                        <span x-text="food.grams"></span>g
+                                    </span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Selected Foods Table -->
+        <table class="data-table"
+            x-show="optimizationResults?.selected_foods && !optimizationResults?.daily_plans?.length">
+            <thead>
+                <tr>
+                    <th scope="col">Food</th>
+                    <th scope="col">Packs/Units</th>
+                    <th scope="col">Weekly Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="(amount, food) in optimizationResults?.selected_foods" :key="food">
+                    <tr>
+                        <td x-text="food"></td>
+                        <td class="data-table__muted">
+                            <template x-if="optimizationResults?.selected_portions?.[food]?.mode === 'discrete'">
+                                <span>
+                                    <span x-text="optimizationResults.selected_portions[food].packs"></span>
+                                    × <span x-text="optimizationResults.selected_portions[food].pack_size_g"></span>g
+                                </span>
+                            </template>
+                            <template x-if="optimizationResults?.selected_portions?.[food]?.mode === 'continuous'">
+                                <span class="u-text-muted">weighed</span>
+                            </template>
+                            <template x-if="!optimizationResults?.selected_portions?.[food]">
+                                <span>—</span>
+                            </template>
+                        </td>
+                        <td class="u-font-bold"><span x-text="Math.round(amount)"></span>g</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <!-- Nutrient Analysis Table -->
+        <div class="table-section u-mt-lg" x-data="{ showNutrients: true }">
+            <button type="button" class="table-section__header u-flex-between btn--full-width"
+                :aria-expanded="showNutrients" @click="showNutrients = !showNutrients">
+                <span>📊 Daily Average Nutrients (Weekly ÷ 7)</span>
+                <span class="table-section__icon" :class="{ 'table-section--collapsed': !showNutrients }"
+                    aria-hidden="true">▼</span>
+            </button>
+
+            <table class="data-table" x-show="showNutrients" x-transition>
+                <thead>
+                    <tr>
+                        <th scope="col">Nutrient</th>
+                        <th scope="col">Daily Avg</th>
+                        <th scope="col">Daily Target</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="n in optimizationResults?.nutrient_analysis" :key="n.nutrient_name">
+                        <tr>
+                            <td x-text="n.nutrient_name"></td>
+                            <td class="u-font-bold">
+                                <span x-text="n.actual"></span>
+                                <span class="data-table__muted" x-text="n.unit"></span>
+                            </td>
+                            <td class="data-table__muted">
+                                <span x-text="n.daily_target !== null ? n.daily_target : '—'"></span>
+                                <span x-text="n.unit"></span>
+                            </td>
+                            <td>
+                                <!-- In Range Status -->
+                                <template x-if="n.status === 'in_range'">
+                                    <span class="status-badge status-badge--success">✓ In Range</span>
+                                </template>
+                                <!-- Below Min Status -->
+                                <template x-if="n.status === 'below_min'">
+                                    <span class="status-badge status-badge--error">
+                                        ↓ <span x-text="n.error_percent"></span>% below
+                                    </span>
+                                </template>
+                                <!-- Above Max Status -->
+                                <template x-if="n.status === 'above_max'">
+                                    <span class="status-badge status-badge--warning">
+                                        ↑ <span x-text="n.error_percent"></span>% above
+                                    </span>
+                                </template>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Warnings -->
+        <div x-show="optimizationResults?.warnings?.length > 0" class="u-mt-md">
+            <p class="u-text-warning"><strong>Warnings:</strong></p>
+            <ul class="u-text-muted">
+                <template x-for="warn in optimizationResults?.warnings">
+                    <li x-text="warn"></li>
+                </template>
+            </ul>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('nutritionApp', () => ({
+            // State
+            isLoading: false,
+            isOptimizing: false,
+            error: null,
+            optimizationError: null,
+            results: null,
+            optimizationResults: null,
+
+            // Form data with sensible defaults
+            form: {
+                age: 23,
+                gender: 'male',
+                weight_kg: 75,
+                height_cm: 187,
+                activity_level: 'very_active',
+                goal: 'maintenance'
+            },
+
+            /**
+             * Generate shopping list - combines calculation + optimization in one flow
+             */
+            async calculateRanges() {
+                this.isLoading = true;
+                this.error = null;
+                this.optimizationError = null;
+                this.results = null;
+                this.optimizationResults = null;
+
+                try {
+                    // Step 1: Calculate nutrient ranges
+                    const calcResponse = await fetch('/api/calculate-ranges', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(this.form)
+                    });
+
+                    if (!calcResponse.ok) {
+                        const errorData = await calcResponse.json().catch(() => ({}));
+                        throw new Error(errorData.detail || 'Calculation failed');
+                    }
+
+                    this.results = await calcResponse.json();
+
+                    // Step 2: Automatically optimize diet
+                    this.isLoading = false;
+                    this.isOptimizing = true;
+
+                    const optResponse = await fetch('/api/optimize', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(this.form)
+                    });
+
+                    if (!optResponse.ok) {
+                        const errorData = await optResponse.json().catch(() => ({}));
+                        throw new Error(errorData.detail || 'Optimization failed');
+                    }
+
+                    this.optimizationResults = await optResponse.json();
+                } catch (e) {
+                    console.error('Generation error:', e);
+                    if (this.isOptimizing) {
+                        this.optimizationError = e.message || "Optimization failed";
+                    } else {
+                        this.error = e.message || "Failed to calculate. Is the backend running?";
+                    }
+                } finally {
+                    this.isLoading = false;
+                    this.isOptimizing = false;
+                }
+            },
+
+            /**
+             * Export results as JSON file
+             */
+            exportResults() {
+                const data = {
+                    profile: this.form,
+                    nutrientTargets: this.results,
+                    mealPlan: this.optimizationResults,
+                    exportedAt: new Date().toISOString()
+                };
+
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `nutrition-plan-${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        }));
+    });
+</script>
+{% endblock %}

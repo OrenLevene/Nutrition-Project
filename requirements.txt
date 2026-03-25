@@ -1,0 +1,27 @@
+# Nutrition Optimizer - Python Dependencies
+# Generated for Render.com deployment
+
+# Web Framework
+fastapi==0.127.0
+uvicorn==0.40.0
+starlette==0.50.0
+
+# Data Validation
+pydantic==2.12.5
+
+# Templates
+jinja2==3.1.6
+
+# Data Processing
+pandas==2.3.3
+numpy==2.4.0
+pyarrow==22.0.0
+
+# Optimization Solver
+PuLP==3.3.0
+scipy==1.16.3
+
+# Utilities
+python-multipart==0.0.21
+requests>=2.31.0
+rapidfuzz>=3.0.0

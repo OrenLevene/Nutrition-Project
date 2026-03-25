@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Science & Methodology - NutriShop{% endblock %}
+{% block description %}Understand the science behind NutriShop's optimization engine, including RDA compliance and
+health constraints.{% endblock %}
+
+{% block content %}
+<div class="content-grid u-mt-xl">
+    <div class="text-content" style="max-width: 800px; margin: 0 auto; color: var(--color-text-secondary);">
+
+        <!-- Header -->
+        <h1 class="u-mb-lg"
+            style="font-size: 2.5rem; line-height: 1.3; padding-bottom: 0.2em; background: linear-gradient(135deg, #fff 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Our Methodology
+        </h1>
+        <p class="u-text-lg u-mb-xl">
+            NutriShop isn't just a meal planner—it's a mathematical optimization engine designed to solve the complex
+            problem of meeting 100% of your nutritional needs at the lowest possible cost.
+        </p>
+
+        <!-- The 4 Pillars -->
+        <section class="u-mb-2xl">
+            <h2 class="u-mb-md" style="line-height: 1.3; padding-bottom: 0.1em;">Core Pillars</h2>
+            <div class="stat-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 class="u-mb-sm" style="color: var(--color-success); line-height: 1.2;">🥗 Complete Nutrition</h3>
+                    <p>We strictly adhere to RDA and UL standards to ensure no deficiencies and no toxicity.</p>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 class="u-mb-sm" style="color: var(--color-primary); line-height: 1.2;">💷 Cost Optimization</h3>
+                    <p>Our algorithms compare prices across UK stores to find the most cost-effective path to health.</p>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 class="u-mb-sm" style="color: var(--color-accent); line-height: 1.2;">🛒 Real-World Availability</h3>
+                    <p>We map results to actual products in your local supermarkets, ensuring every list is actionable.</p>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 class="u-mb-sm" style="color: #60a5fa; line-height: 1.2;">🍳 Equipment Match</h3>
+                    <p>We optimize meals for your facilities—whether you have a full range or just a microwave.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nutritional Standards -->
+        <section class="u-mb-2xl">
+            <h2 class="u-mb-md" style="margin-top: 4rem; line-height: 1.3; padding-bottom: 0.1em;">Nutritional Standards</h2>
+            <div class="glass-panel u-p-lg">
+                <p class="u-mb-md">
+                    We use data from the <strong>USDA FoodData Central</strong> and <strong>UK CoFID</strong> databases.
+                    Our constraints are based on peer-reviewed standards:
+                </p>
+                <ul style="list-style: disc; padding-left: 1.5rem; line-height: 1.6;">
+                    <li><strong>RDA (Recommended Dietary Allowance):</strong> Standards for 98% of healthy people.</li>
+                    <li><strong>UL (Tolerable Upper Intake Level):</strong> Maximum daily intake to avoid toxicity.</li>
+                    <li><strong>AMDR (Acceptable Macronutrient Distribution Range):</strong> Balanced energy source ratios.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Health Guidelines -->
+        <section class="u-mb-2xl">
+            <h2 class="u-mb-md" style="margin-top: 4rem;">Health Constraints & Safety</h2>
+            <p class="u-mb-lg">
+                Beyond basic vitamins and minerals, we apply specific constraints based on modern health research to
+                reduce long-term disease risks.
+            </p>
+
+            <div class="glass-panel u-p-lg u-mb-md">
+                <h3 class="u-mb-sm">🥩 Red & Processed Meat Limits</h3>
+                <p class="u-mb-sm">
+                    <strong>Why?</strong> The World Health Organization (WHO) classifies processed meat as carcinogenic
+                    (Group 1) and red meat as probably carcinogenic (Group 2A). High intake is linked to colorectal
+                    cancer.
+                </p>
+                <p>
+                    <strong>Our Limit:</strong> We cap red meat intake to <strong>&lt;350g per week</strong> and
+                    minimize processed meats, favoring poultry, fish, and plant-based proteins.
+                </p>
+            </div>
+
+            <div class="glass-panel u-p-lg u-mb-md">
+                <h3 class="u-mb-sm">🧂 Sodium & Sugar</h3>
+                <p>
+                    <strong>Sodium:</strong> Capped at 2,300mg/day to reduce blood pressure and cardiovascular risk.<br>
+                    <strong>Added Sugar:</strong> Limited to &lt;10% of total calories to prevent metabolic syndrome and
+                    obesity.
+                </p>
+            </div>
+
+            <div class="glass-panel u-p-lg">
+                <h3 class="u-mb-sm">🥬 Fiber & Gut Health</h3>
+                <p>
+                    We enforce a minimum fiber intake (30g/day) to support microbiome health, digestion, and satiety.
+                </p>
+            </div>
+        </section>
+
+        <!-- Nutrient Reference Guide -->
+        <section class="u-mb-2xl">
+            <h2 class="u-mb-md" style="margin-top: 4rem;">Nutrient Reference Guide</h2>
+            <p class="u-mb-lg">
+                NutriShop tracks 53 essential nutrients to ensure your body gets everything it needs for optimal function.
+            </p>
+
+            <div class="glass-panel u-p-lg">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+                    
+                    <!-- Macronutrients -->
+                    <div>
+                        <h4 style="color: var(--color-success); margin-bottom: 0.75rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.25rem;">Macronutrients</h4>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6;">
+                            <li><strong>Protein:</strong> Muscle growth and tissue repair.</li>
+                            <li><strong>Carbohydrates:</strong> Primary fuel for the body.</li>
+                            <li><strong>Total Fats:</strong> Hormones and vitamin storage.</li>
+                            <li><strong>Fiber:</strong> Digestion and blood sugar control.</li>
+                            <li><strong>Sugar:</strong> Quick energy, best in moderation.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Essential Fats -->
+                    <div>
+                        <h4 style="color: #60a5fa; margin-bottom: 0.75rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.25rem;">Essential Fatty Acids</h4>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6;">
+                            <li><strong>Omega-3:</strong> Brain health and inflammation.</li>
+                            <li><strong>Omega-6:</strong> Signal molecules and skin health.</li>
+                            <li><strong>Monounsaturated:</strong> Heart-healthy oils.</li>
+                            <li><strong>Polyunsaturated:</strong> Essential cell components.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Vitamins -->
+                    <div>
+                        <h4 style="color: var(--color-primary); margin-bottom: 0.75rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.25rem;">Key Vitamins</h4>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6;">
+                            <li><strong>Vitamin A:</strong> Vision and immunity.</li>
+                            <li><strong>Vitamin C:</strong> Antioxidant and collagen.</li>
+                            <li><strong>Vitamin D:</strong> Bone health and calcium.</li>
+                            <li><strong>Vitamin E / K:</strong> Protection and clotting.</li>
+                            <li><strong>B-Complex:</strong> Energy and nerve function.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Minerals -->
+                    <div>
+                        <h4 style="color: var(--color-accent); margin-bottom: 0.75rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 0.25rem;">Essential Minerals</h4>
+                        <ul style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6;">
+                            <li><strong>Calcium:</strong> Bones and dental health.</li>
+                            <li><strong>Iron:</strong> Oxygen transport in blood.</li>
+                            <li><strong>Magnesium:</strong> Muscle and nerve reactions.</li>
+                            <li><strong>Potassium / Zinc:</strong> Balance and immunity.</li>
+                            <li><strong>Iodine / Selenium:</strong> Thyroid function.</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <p class="u-mt-lg u-text-sm u-text-muted" style="font-style: italic; border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                    + 30 more trace minerals and specialized nutrients tracked internally by the engine.
+                </p>
+            </div>
+        </section>
+        <section class="u-mb-xl">
+            <h2 class="u-mb-sm" style="margin-top: 4rem;">Sources</h2>
+            <p class="u-text-sm u-text-muted">
+                Data sources include: U.S. FDA, USDA, UK NHS Guidelines, World Health Organization (WHO), and scientific
+                literature on nutritional optimization (Linear Programming).
+            </p>
+        </section>
+
+        <!-- CTA -->
+        <div class="u-text-center u-mt-xl">
+            <a href="/calculator" class="btn btn--primary btn--lg">
+                Try the Calculator
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

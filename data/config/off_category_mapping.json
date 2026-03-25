@@ -1,0 +1,321 @@
+{
+    "_comment": "Maps OFF pnns_group_2 categories to canonical food keywords",
+    "Cheese": {
+        "keywords": [
+            "cheese",
+            "cheddar",
+            "mozzarella",
+            "parmesan",
+            "brie",
+            "feta",
+            "gouda",
+            "edam",
+            "stilton",
+            "cream cheese"
+        ],
+        "canonical_pattern": "cheese"
+    },
+    "Legumes": {
+        "keywords": [
+            "beans",
+            "lentils",
+            "chickpeas",
+            "peas",
+            "hummus",
+            "dal",
+            "kidney",
+            "black bean",
+            "pinto"
+        ],
+        "canonical_pattern": "bean|lentil|chickpea|pea|legume"
+    },
+    "Poultry": {
+        "keywords": [
+            "chicken",
+            "turkey",
+            "duck",
+            "goose",
+            "hen"
+        ],
+        "canonical_pattern": "chicken|turkey|duck|poultry"
+    },
+    "Eggs": {
+        "keywords": [
+            "egg",
+            "eggs",
+            "omelette",
+            "quiche"
+        ],
+        "canonical_pattern": "egg"
+    },
+    "Milk and yogurt": {
+        "keywords": [
+            "milk",
+            "yogurt",
+            "yoghurt",
+            "kefir",
+            "buttermilk"
+        ],
+        "canonical_pattern": "milk|yogurt"
+    },
+    "Cereals": {
+        "keywords": [
+            "oats",
+            "porridge",
+            "muesli",
+            "granola",
+            "bran",
+            "wheat",
+            "cereal",
+            "cornflakes"
+        ],
+        "canonical_pattern": "oat|cereal|bran|wheat|corn"
+    },
+    "Bread": {
+        "keywords": [
+            "bread",
+            "roll",
+            "baguette",
+            "ciabatta",
+            "sourdough",
+            "toast",
+            "pitta",
+            "naan"
+        ],
+        "canonical_pattern": "bread|roll|toast"
+    },
+    "Fish": {
+        "keywords": [
+            "salmon",
+            "cod",
+            "tuna",
+            "mackerel",
+            "sardine",
+            "haddock",
+            "trout",
+            "sea bass",
+            "fish"
+        ],
+        "canonical_pattern": "salmon|cod|tuna|mackerel|fish|sardine|haddock"
+    },
+    "Seafood": {
+        "keywords": [
+            "prawn",
+            "shrimp",
+            "crab",
+            "lobster",
+            "mussel",
+            "oyster",
+            "squid",
+            "scallop"
+        ],
+        "canonical_pattern": "prawn|shrimp|crab|lobster|shellfish|mussel"
+    },
+    "Vegetables": {
+        "keywords": [
+            "carrot",
+            "broccoli",
+            "spinach",
+            "tomato",
+            "onion",
+            "pepper",
+            "cucumber",
+            "lettuce",
+            "cabbage",
+            "courgette",
+            "aubergine",
+            "mushroom",
+            "potato",
+            "sweet potato"
+        ],
+        "canonical_pattern": "carrot|broccoli|spinach|tomato|onion|pepper|cucumber|lettuce|potato|mushroom"
+    },
+    "Fruits": {
+        "keywords": [
+            "apple",
+            "banana",
+            "orange",
+            "strawberry",
+            "blueberry",
+            "raspberry",
+            "grape",
+            "mango",
+            "pineapple",
+            "pear",
+            "peach",
+            "kiwi",
+            "melon",
+            "watermelon"
+        ],
+        "canonical_pattern": "apple|banana|orange|strawberry|berry|grape|mango|pear|peach|fruit"
+    },
+    "Nuts": {
+        "keywords": [
+            "almond",
+            "walnut",
+            "cashew",
+            "peanut",
+            "hazelnut",
+            "pistachio",
+            "pecan",
+            "brazil nut",
+            "macadamia"
+        ],
+        "canonical_pattern": "almond|walnut|cashew|peanut|nut"
+    },
+    "Red meat": {
+        "keywords": [
+            "beef",
+            "steak",
+            "lamb",
+            "pork",
+            "bacon",
+            "ham",
+            "sausage",
+            "mince",
+            "burger"
+        ],
+        "canonical_pattern": "beef|lamb|pork|bacon|ham|steak"
+    },
+    "Fats": {
+        "keywords": [
+            "butter",
+            "margarine",
+            "oil",
+            "olive oil",
+            "coconut oil",
+            "sunflower oil",
+            "rapeseed"
+        ],
+        "canonical_pattern": "butter|oil|margarine|fat"
+    },
+    "Rice": {
+        "keywords": [
+            "rice",
+            "basmati",
+            "jasmine",
+            "risotto",
+            "paella",
+            "pilau"
+        ],
+        "canonical_pattern": "rice"
+    },
+    "Pasta": {
+        "keywords": [
+            "pasta",
+            "spaghetti",
+            "penne",
+            "fusilli",
+            "macaroni",
+            "tagliatelle",
+            "lasagne",
+            "noodle"
+        ],
+        "canonical_pattern": "pasta|spaghetti|noodle|macaroni"
+    },
+    "_top_100_manual_mappings": {
+        "Eggs, Grade A, Large, egg whole": [
+            "eggs",
+            "free range eggs",
+            "large eggs",
+            "medium eggs",
+            "organic eggs"
+        ],
+        "Milk, whole, 3.25% milkfat": [
+            "whole milk",
+            "full fat milk",
+            "blue top milk"
+        ],
+        "Milk, reduced fat, 2%": [
+            "semi skimmed milk",
+            "2% milk",
+            "green top milk"
+        ],
+        "Milk, nonfat, skim": [
+            "skimmed milk",
+            "fat free milk",
+            "red top milk"
+        ],
+        "Bread, white": [
+            "white bread",
+            "sliced white",
+            "white loaf"
+        ],
+        "Bread, whole-wheat": [
+            "wholemeal bread",
+            "brown bread",
+            "whole wheat bread"
+        ],
+        "Chicken, breast, meat only": [
+            "chicken breast",
+            "chicken fillets",
+            "chicken breast fillets"
+        ],
+        "Butter, salted": [
+            "salted butter",
+            "butter",
+            "spreadable butter"
+        ],
+        "Cheese, cheddar": [
+            "cheddar cheese",
+            "mature cheddar",
+            "mild cheddar",
+            "cathedral city"
+        ],
+        "Bananas, raw": [
+            "bananas",
+            "banana"
+        ],
+        "Apples, raw": [
+            "apples",
+            "apple",
+            "gala apples",
+            "braeburn"
+        ],
+        "Rice, white, long-grain": [
+            "white rice",
+            "basmati rice",
+            "long grain rice"
+        ],
+        "Salmon, Atlantic, farmed": [
+            "salmon fillets",
+            "atlantic salmon",
+            "salmon"
+        ],
+        "Olive oil": [
+            "olive oil",
+            "extra virgin olive oil"
+        ],
+        "Oats, regular and quick": [
+            "porridge oats",
+            "rolled oats",
+            "oats"
+        ],
+        "Yogurt, Greek, plain": [
+            "greek yogurt",
+            "greek style yogurt",
+            "fage"
+        ],
+        "Spinach, raw": [
+            "spinach",
+            "baby spinach",
+            "spinach leaves"
+        ],
+        "Broccoli, raw": [
+            "broccoli",
+            "broccoli florets",
+            "tenderstem broccoli"
+        ],
+        "Carrots, raw": [
+            "carrots",
+            "carrot",
+            "baby carrots"
+        ],
+        "Tomatoes, raw": [
+            "tomatoes",
+            "tomato",
+            "cherry tomatoes",
+            "vine tomatoes"
+        ]
+    }
+}

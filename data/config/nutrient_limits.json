@@ -1,0 +1,469 @@
+{
+    "demographics": {
+        "age_groups": [
+            "19-50"
+        ],
+        "genders": [
+            "male",
+            "female"
+        ]
+    },
+    "nutrients": {
+        "protein": {
+            "strategy": "bodyweight",
+            "unit": "g/kg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 0.8,
+                    "optimal_active": 1.6,
+                    "optimal_build": 2.2,
+                    "max_safe": 3.0
+                }
+            ]
+        },
+        "fat": {
+            "strategy": "percent_calories",
+            "unit": "%",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 20,
+                    "max": 35
+                }
+            ]
+        },
+        "carbohydrate": {
+            "strategy": "percent_calories",
+            "unit": "%",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 45,
+                    "max": 65,
+                    "absolute_min_g": 130
+                }
+            ]
+        },
+        "Fiber (g)": {
+            "strategy": "absolute",
+            "unit": "g",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 38
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 25
+                }
+            ]
+        },
+        "Vitamin A (mcg RAE)": {
+            "strategy": "absolute",
+            "unit": "mcg RAE",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 900,
+                    "max": 3000
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 700,
+                    "max": 3000
+                }
+            ]
+        },
+        "Vitamin C (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 90,
+                    "max": 2000
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 75,
+                    "max": 2000
+                }
+            ]
+        },
+        "Vitamin D (mcg)": {
+            "strategy": "absolute",
+            "unit": "mcg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 15,
+                    "max": 100
+                }
+            ]
+        },
+        "Vitamin E (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 15,
+                    "max": 1000
+                }
+            ]
+        },
+        "Vitamin K (mcg)": {
+            "strategy": "absolute",
+            "unit": "mcg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 120
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 90
+                }
+            ]
+        },
+        "Thiamin (B1) (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 1.2
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 1.1
+                }
+            ]
+        },
+        "Riboflavin (B2) (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 1.3
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 1.1
+                }
+            ]
+        },
+        "Niacin (B3) (mg NE)": {
+            "strategy": "absolute",
+            "unit": "mg NE",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 16,
+                    "max": 35
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 14,
+                    "max": 35
+                }
+            ]
+        },
+        "Vitamin B6 (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 1.3,
+                    "max": 100
+                }
+            ]
+        },
+        "Folate (mcg DFE)": {
+            "strategy": "absolute",
+            "unit": "mcg DFE",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 400,
+                    "max": 1000
+                }
+            ]
+        },
+        "Vitamin B12 (mcg)": {
+            "strategy": "absolute",
+            "unit": "mcg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 2.4
+                }
+            ]
+        },
+        "Biotin (mcg)": {
+            "strategy": "absolute",
+            "unit": "mcg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 30
+                }
+            ]
+        },
+        "Pantothenic Acid (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 5
+                }
+            ]
+        },
+        "Choline (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 550,
+                    "max": 3500
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 425,
+                    "max": 3500
+                }
+            ]
+        },
+        "Calcium (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 1000,
+                    "max": 2500
+                }
+            ]
+        },
+        "Iron (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 8,
+                    "max": 45
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 18,
+                    "max": 45
+                }
+            ]
+        },
+        "Magnesium (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-30",
+                    "min": 400
+                },
+                {
+                    "gender": "male",
+                    "age": "31-50",
+                    "min": 420
+                },
+                {
+                    "gender": "female",
+                    "age": "19-30",
+                    "min": 310
+                },
+                {
+                    "gender": "female",
+                    "age": "31-50",
+                    "min": 320
+                }
+            ]
+        },
+        "Phosphorus (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 700,
+                    "max": 4000
+                }
+            ]
+        },
+        "Potassium (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 3400
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 2600
+                }
+            ]
+        },
+        "Sodium (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 1500,
+                    "max": 2300
+                }
+            ]
+        },
+        "Zinc (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 11,
+                    "max": 40
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 8,
+                    "max": 40
+                }
+            ]
+        },
+        "Copper (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 0.9,
+                    "max": 10
+                }
+            ]
+        },
+        "Manganese (mg)": {
+            "strategy": "absolute",
+            "unit": "mg",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 2.3,
+                    "max": 11
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 1.8,
+                    "max": 11
+                }
+            ]
+        },
+        "Selenium (mcg)": {
+            "strategy": "absolute",
+            "unit": "mcg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 55,
+                    "max": 400
+                }
+            ]
+        },
+        "Iodine (mcg)": {
+            "strategy": "absolute",
+            "unit": "mcg",
+            "profiles": [
+                {
+                    "gender": "male|female",
+                    "age": "19-50",
+                    "min": 150,
+                    "max": 1100
+                }
+            ]
+        },
+        "Omega-3 (ALA) (g)": {
+            "strategy": "absolute",
+            "unit": "g",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 1.6
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 1.1
+                }
+            ]
+        },
+        "Omega-6 (Linoleic) (g)": {
+            "strategy": "absolute",
+            "unit": "g",
+            "profiles": [
+                {
+                    "gender": "male",
+                    "age": "19-50",
+                    "min": 17
+                },
+                {
+                    "gender": "female",
+                    "age": "19-50",
+                    "min": 12
+                }
+            ]
+        }
+    }
+}

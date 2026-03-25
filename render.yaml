@@ -1,0 +1,23 @@
+# Render.com deployment configuration
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: nutrition-optimizer
+    runtime: python
+    plan: free
+    
+    # Build settings
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.web_app.main:app --host 0.0.0.0 --port $PORT
+    
+    # Environment variables
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+    
+    # Health check
+    healthCheckPath: /
+    
+    # Auto-deploy on push to main branch
+    autoDeploy: true

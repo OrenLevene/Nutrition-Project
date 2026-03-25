@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NutriShop - Intelligent Grocery Planning{% endblock %}</title>
+    <meta name="description"
+        content="{% block description %}Scientifically optimized grocery lists for your health and budget.{% endblock %}">
+    <link rel="icon" type="image/png" href="/static/images/favicon.png?v=16">
+    <link rel="stylesheet" href="/static/style.css?v=5">
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {% block head %}{% endblock %}
+    <script>
+        // Immediate theme initialization to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</head>
+
+<body>
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+
+    <!-- Navigation -->
+    <header class="site-header" x-data="{ mobileMenuOpen: false }">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-mark">
+                    <img src="/static/images/logo.png?v=16" alt="NutriShop Logo" height="42" style="width: auto; vertical-align: middle;">
+                </div>
+                <span class="logo-text">NutriShop</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="desktop-nav">
+                <a href="/" class="nav-link {% if request.url.path == '/' %}active{% endif %}">Home</a>
+                <a href="/calculator"
+                    class="nav-link {% if request.url.path == '/calculator' %}active{% endif %}">Calculator</a>
+                <a href="/science" class="nav-link {% if request.url.path == '/science' %}active{% endif %}">Science</a>
+                
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="nav-link" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode" style="padding: 10px; min-width: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer;">
+                    <svg class="sun-icon" style="display: none; width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 18v1m9-11h1M2 12h1m15.364-6.364l.707.707M6.343 17.657l.707.707M17.657 17.657l.707-.707M6.343 6.343l.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path></svg>
+                    <svg class="moon-icon" style="display: block; width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle menu">
+                <span class="hamburger-icon" :class="{ 'is-active': mobileMenuOpen }"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Drawer -->
+        <div class="mobile-nav" x-show="mobileMenuOpen" style="display: none;"
+            x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2">
+            <nav class="mobile-nav-links">
+                <a href="/" class="mobile-link">Home</a>
+                <a href="/calculator" class="mobile-link">Calculator</a>
+                <a href="/science" class="mobile-link">Science</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="app-container" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="app-container">
+            <p>&copy; 2026 NutriShop. Scientifically optimized nutrition.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = themeToggle.querySelector('.sun-icon');
+        const moonIcon = themeToggle.querySelector('.moon-icon');
+
+        function updateIcons(theme) {
+            if (theme === 'light') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+
+        // Initialize icons based on current theme
+        updateIcons(document.documentElement.getAttribute('data-theme'));
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons(newTheme);
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

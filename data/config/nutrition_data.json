@@ -1,0 +1,1238 @@
+{
+  "rda": {
+    "macronutrients": {
+      "protein": {
+        "unit": "g/kg_bodyweight",
+        "description": "Recommended grams of protein per kg of body weight",
+        "values": {
+          "0-6 months": {
+            "all": {
+              "min": 1.52,
+              "max": null
+            }
+          },
+          "7-12 months": {
+            "all": {
+              "min": 1.2,
+              "max": null
+            }
+          },
+          "1-3 years": {
+            "all": {
+              "min": 1.05,
+              "max": null
+            }
+          },
+          "4-13 years": {
+            "all": {
+              "min": 0.95,
+              "max": null
+            }
+          },
+          "14-18 years": {
+            "male": {
+              "min": 0.85,
+              "max": null
+            },
+            "female": {
+              "min": 0.85,
+              "max": null
+            }
+          },
+          "19+ years": {
+            "all": {
+              "min": 0.8,
+              "max": null
+            }
+          },
+          "athlete_endurance": {
+            "all": {
+              "min": 1.3,
+              "max": null
+            }
+          },
+          "athlete_strength": {
+            "all": {
+              "min": 1.6,
+              "max": null
+            }
+          }
+        },
+        "amdr": {
+          "description": "Acceptable Macronutrient Distribution Range (% of total calories)",
+          "values": {
+            "1-3 years": {
+              "min": 5,
+              "max": 20
+            },
+            "4-18 years": {
+              "min": 10,
+              "max": 30
+            },
+            "19+ years": {
+              "min": 10,
+              "max": 35
+            }
+          }
+        }
+      },
+      "carbohydrate": {
+        "amdr": {
+          "description": "Acceptable Macronutrient Distribution Range (% of total calories)",
+          "values": {
+            "all_ages": {
+              "min": 45,
+              "max": 65
+            }
+          }
+        }
+      },
+      "fat": {
+        "amdr": {
+          "description": "Acceptable Macronutrient Distribution Range (% of total calories)",
+          "values": {
+            "1-3 years": {
+              "min": 30,
+              "max": 40
+            },
+            "4-18 years": {
+              "min": 25,
+              "max": 35
+            },
+            "19+ years": {
+              "min": 20,
+              "max": 35
+            }
+          }
+        }
+      },
+      "Saturated Fat (g)": {
+        "description": "Limit to < 10% of calories (DGA 2020-2025)",
+        "values": {
+          "all_ages": {
+            "min": 0,
+            "max_percent_calories": 10
+          }
+        }
+      },
+      "Sugar (g)": {
+        "description": "Limit added sugars to <10% of calories (WHO/DGA 2020-2025)",
+        "values": {
+          "all_ages": {
+            "min": 0,
+            "max_percent_calories": 10
+          }
+        }
+      },
+      "Monounsaturated Fat (g)": {
+        "description": "Healthy fats, majority of fat intake.",
+        "values": {
+          "all_ages": {
+            "min_percent_calories": 10,
+            "max": null
+          }
+        }
+      },
+      "Polyunsaturated Fat (g)": {
+        "description": "Essential fats.",
+        "values": {
+          "all_ages": {
+            "min_percent_calories": 5,
+            "max": null
+          }
+        }
+      }
+    },
+    "vitamins": {
+      "Vitamin A (mcg RAE)": {
+        "0-6 months": {
+          "all": {
+            "min": 400,
+            "max": 600
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 500,
+            "max": 600
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 300,
+            "max": 600
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 400,
+            "max": 900
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 600,
+            "max": 1700
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 900,
+            "max": 2800
+          },
+          "female": {
+            "min": 700,
+            "max": 2800
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 900,
+            "max": 3000
+          },
+          "female": {
+            "min": 700,
+            "max": 3000
+          }
+        }
+      },
+      "Vitamin C (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 40,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 50,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 15,
+            "max": 400
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 25,
+            "max": 650
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 45,
+            "max": 1200
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 75,
+            "max": 1800
+          },
+          "female": {
+            "min": 65,
+            "max": 1800
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 90,
+            "max": 2000
+          },
+          "female": {
+            "min": 75,
+            "max": 2000
+          }
+        }
+      },
+      "Vitamin D (mcg)": {
+        "0-12 months": {
+          "all": {
+            "min": 10,
+            "max": 38
+          }
+        },
+        "1-70 years": {
+          "all": {
+            "min": 15,
+            "max": 100
+          }
+        },
+        "70+ years": {
+          "all": {
+            "min": 20,
+            "max": 100
+          }
+        }
+      },
+      "Vitamin E (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 4,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 5,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 6,
+            "max": 200
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 7,
+            "max": 300
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 11,
+            "max": 600
+          }
+        },
+        "14+ years": {
+          "all": {
+            "min": 15,
+            "max": 1000
+          }
+        }
+      },
+      "Vitamin K (mcg)": {
+        "0-6 months": {
+          "all": {
+            "min": 2.0,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 2.5,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 30,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 55,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 60,
+            "max": null
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 75,
+            "max": null
+          },
+          "female": {
+            "min": 75,
+            "max": null
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 120,
+            "max": null
+          },
+          "female": {
+            "min": 90,
+            "max": null
+          }
+        }
+      },
+      "Thiamin (B1) (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 0.2,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 0.3,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 0.5,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 0.6,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 0.9,
+            "max": null
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 1.2,
+            "max": null
+          },
+          "female": {
+            "min": 1.0,
+            "max": null
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 1.2,
+            "max": null
+          },
+          "female": {
+            "min": 1.1,
+            "max": null
+          }
+        }
+      },
+      "Riboflavin (B2) (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 0.3,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 0.4,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 0.5,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 0.6,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 0.9,
+            "max": null
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 1.3,
+            "max": null
+          },
+          "female": {
+            "min": 1.0,
+            "max": null
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 1.3,
+            "max": null
+          },
+          "female": {
+            "min": 1.1,
+            "max": null
+          }
+        }
+      },
+      "Niacin (B3) (mg NE)": {
+        "0-6 months": {
+          "all": {
+            "min": 2,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 4,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 6,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 8,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 12,
+            "max": null
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 16,
+            "max": null
+          },
+          "female": {
+            "min": 14,
+            "max": null
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 16,
+            "max": null
+          },
+          "female": {
+            "min": 14,
+            "max": null
+          }
+        }
+      },
+      "Vitamin B6 (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 0.1,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 0.3,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 0.5,
+            "max": 30
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 0.6,
+            "max": 40
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 1.0,
+            "max": 60
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 1.3,
+            "max": 80
+          },
+          "female": {
+            "min": 1.2,
+            "max": 80
+          }
+        },
+        "19-50 years": {
+          "all": {
+            "min": 1.3,
+            "max": 100
+          }
+        },
+        "51+ years": {
+          "male": {
+            "min": 1.7,
+            "max": 100
+          },
+          "female": {
+            "min": 1.5,
+            "max": 100
+          }
+        }
+      },
+      "Folate (mcg DFE)": {
+        "0-6 months": {
+          "all": {
+            "min": 65,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 80,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 150,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 200,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 300,
+            "max": null
+          }
+        },
+        "14+ years": {
+          "all": {
+            "min": 400,
+            "max": null
+          }
+        }
+      },
+      "Vitamin B12 (mcg)": {
+        "0-6 months": {
+          "all": {
+            "min": 0.4,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 0.5,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 0.9,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 1.2,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 1.8,
+            "max": null
+          }
+        },
+        "14+ years": {
+          "all": {
+            "min": 2.4,
+            "max": null
+          }
+        }
+      },
+      "Biotin (mcg)": {
+        "19+ years": {
+          "all": {
+            "min": 30,
+            "max": null
+          }
+        }
+      },
+      "Pantothenic Acid (mg)": {
+        "19+ years": {
+          "all": {
+            "min": 5,
+            "max": null
+          }
+        }
+      }
+    },
+    "minerals": {
+      "Calcium (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 200,
+            "max": 1000
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 260,
+            "max": 1500
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 700,
+            "max": 2500
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 1000,
+            "max": 2500
+          }
+        },
+        "9-18 years": {
+          "all": {
+            "min": 1300,
+            "max": 3000
+          }
+        },
+        "19-50 years": {
+          "all": {
+            "min": 1000,
+            "max": 2500
+          }
+        },
+        "51-70 years": {
+          "male": {
+            "min": 1000,
+            "max": 2000
+          },
+          "female": {
+            "min": 1200,
+            "max": 2000
+          }
+        },
+        "71+ years": {
+          "all": {
+            "min": 1200,
+            "max": 2000
+          }
+        }
+      },
+      "Iron (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 0.27,
+            "max": 40
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 11,
+            "max": 40
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 7,
+            "max": 40
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 10,
+            "max": 40
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 8,
+            "max": 40
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 11,
+            "max": 45
+          },
+          "female": {
+            "min": 15,
+            "max": 45
+          }
+        },
+        "19-50 years": {
+          "male": {
+            "min": 8,
+            "max": 45
+          },
+          "female": {
+            "min": 18,
+            "max": 45
+          }
+        },
+        "51+ years": {
+          "all": {
+            "min": 8,
+            "max": 45
+          }
+        }
+      },
+      "Magnesium (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 30,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 75,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 80,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 130,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 240,
+            "max": null
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 410,
+            "max": null
+          },
+          "female": {
+            "min": 360,
+            "max": null
+          }
+        },
+        "19-30 years": {
+          "male": {
+            "min": 400,
+            "max": null
+          },
+          "female": {
+            "min": 310,
+            "max": null
+          }
+        },
+        "31+ years": {
+          "male": {
+            "min": 420,
+            "max": null
+          },
+          "female": {
+            "min": 320,
+            "max": null
+          }
+        }
+      },
+      "Phosphorus (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 100,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 275,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 460,
+            "max": 3000
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 500,
+            "max": 3000
+          }
+        },
+        "9-18 years": {
+          "all": {
+            "min": 1250,
+            "max": 4000
+          }
+        },
+        "19+ years": {
+          "all": {
+            "min": 700,
+            "max": 4000
+          }
+        }
+      },
+      "Potassium (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 400,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 860,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 2000,
+            "max": null
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 2300,
+            "max": null
+          }
+        },
+        "9-13 years": {
+          "male": {
+            "min": 2500,
+            "max": null
+          },
+          "female": {
+            "min": 2300,
+            "max": null
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 3000,
+            "max": null
+          },
+          "female": {
+            "min": 2300,
+            "max": null
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 3400,
+            "max": null
+          },
+          "female": {
+            "min": 2600,
+            "max": null
+          }
+        }
+      },
+      "Sodium (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 110,
+            "max": null
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 370,
+            "max": null
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 800,
+            "max": 1200
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 1000,
+            "max": 1500
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 1200,
+            "max": 1800
+          }
+        },
+        "14+ years": {
+          "all": {
+            "min": 1500,
+            "max": 2300
+          }
+        }
+      },
+      "Zinc (mg)": {
+        "0-6 months": {
+          "all": {
+            "min": 2,
+            "max": 4
+          }
+        },
+        "7-12 months": {
+          "all": {
+            "min": 3,
+            "max": 5
+          }
+        },
+        "1-3 years": {
+          "all": {
+            "min": 3,
+            "max": 7
+          }
+        },
+        "4-8 years": {
+          "all": {
+            "min": 5,
+            "max": 12
+          }
+        },
+        "9-13 years": {
+          "all": {
+            "min": 8,
+            "max": 23
+          }
+        },
+        "14-18 years": {
+          "male": {
+            "min": 11,
+            "max": 34
+          },
+          "female": {
+            "min": 9,
+            "max": 34
+          }
+        },
+        "19+ years": {
+          "male": {
+            "min": 11,
+            "max": 40
+          },
+          "female": {
+            "min": 8,
+            "max": 40
+          }
+        }
+      },
+      "Iodine (mcg)": {
+        "19+ years": {
+          "all": {
+            "min": 150,
+            "max": 1100
+          }
+        }
+      },
+      "Selenium (mcg)": {
+        "19+ years": {
+          "all": {
+            "min": 55,
+            "max": 400
+          }
+        }
+      },
+      "Copper (mg)": {
+        "19+ years": {
+          "all": {
+            "min": 0.9,
+            "max": 10
+          }
+        }
+      },
+      "Manganese (mg)": {
+        "19+ years": {
+          "male": {
+            "min": 2.3,
+            "max": 11
+          },
+          "female": {
+            "min": 1.8,
+            "max": 11
+          }
+        }
+      },
+      "Molybdenum (mcg)": {
+        "19+ years": {
+          "all": {
+            "min": 45,
+            "max": 2000
+          }
+        }
+      },
+      "Creatine (g)": {
+        "description": "Ergogenic aid. Non-essential but beneficial for performance.",
+        "0-18 years": {
+          "all": {
+            "min": 0,
+            "max": null
+          }
+        },
+        "19+ years": {
+          "all": {
+            "min": 0,
+            "max": null
+          }
+        },
+        "athlete_strength": {
+          "all": {
+            "min": 5,
+            "max": null
+          }
+        },
+        "athlete_endurance": {
+          "all": {
+            "min": 3,
+            "max": null
+          }
+        }
+      }
+    },
+    "other": {
+      "Choline (mg)": {
+        "19+ years": {
+          "male": {
+            "min": 550,
+            "max": 3500
+          },
+          "female": {
+            "min": 425,
+            "max": 3500
+          }
+        }
+      },
+      "Fiber (g)": {
+        "19-50 years": {
+          "male": {
+            "min": 38,
+            "max": null
+          },
+          "female": {
+            "min": 25,
+            "max": null
+          }
+        },
+        "51+ years": {
+          "male": {
+            "min": 30,
+            "max": null
+          },
+          "female": {
+            "min": 21,
+            "max": null
+          }
+        }
+      },
+      "Omega-3 (ALA) (g)": {
+        "19+ years": {
+          "male": {
+            "min": 1.6,
+            "max": null
+          },
+          "female": {
+            "min": 1.1,
+            "max": null
+          }
+        }
+      },
+      "Omega-6 (Linoleic) (g)": {
+        "19-50 years": {
+          "male": {
+            "min": 17,
+            "max": null
+          },
+          "female": {
+            "min": 12,
+            "max": null
+          }
+        },
+        "51+ years": {
+          "male": {
+            "min": 14,
+            "max": null
+          },
+          "female": {
+            "min": 11,
+            "max": null
+          }
+        }
+      }
+    }
+  },
+  "constants": {
+    "activity_levels": {
+      "sedentary": {
+        "multiplier": 1.2,
+        "description": "Little to no exercise. Multiplier applied to BMR to calculate Total Energy (Calories)."
+      },
+      "lightly_active": {
+        "multiplier": 1.375,
+        "description": "Light exercise/sports 1-3 days/week. Multiplier applied to BMR to calculate Total Energy (Calories)."
+      },
+      "moderately_active": {
+        "multiplier": 1.55,
+        "description": "Moderate exercise/sports 3-5 days/week. Multiplier applied to BMR to calculate Total Energy (Calories)."
+      },
+      "very_active": {
+        "multiplier": 1.725,
+        "description": "Hard exercise 6-7 days/week. Multiplier applied to BMR to calculate Total Energy (Calories)."
+      },
+      "super_active": {
+        "multiplier": 1.9,
+        "description": "Very hard exercise/physical job & exercise 2x/day. Multiplier applied to BMR to calculate Total Energy (Calories)."
+      }
+    },
+    "met_values": {
+      "walking": {
+        "low": 2.5,
+        "medium": 3.5,
+        "high": 5.0,
+        "description": "Low: <3mph, Med: 3-4mph, High: Brisk/Uphill"
+      },
+      "running": {
+        "low": 8.0,
+        "medium": 11.5,
+        "high": 16.0,
+        "description": "Low: Jog, Med: ~7mph, High: ~10mph"
+      },
+      "cycling_indoor": {
+        "low": 4.8,
+        "medium": 6.8,
+        "high": 9.0,
+        "description": "Low: <100W, Med: ~100W, High: 200W+"
+      },
+      "cycling_outdoor": {
+        "low": 4.0,
+        "medium": 8.0,
+        "high": 12.0,
+        "description": "Low: <10mph, Med: 12-14mph, High: 16+mph"
+      },
+      "gym_weights": {
+        "low": 3.5,
+        "medium": 5.0,
+        "high": 6.0,
+        "description": "Low: Light/Rest heavy, Med: Standard, High: Circuit/Vigorous"
+      },
+      "golf": {
+        "low": 2.5,
+        "medium": 4.3,
+        "high": 5.0,
+        "description": "Low: Cart, Med: Carry clubs, High: Hilly/Fast"
+      },
+      "swimming": {
+        "low": 6.0,
+        "medium": 8.3,
+        "high": 10.0,
+        "description": "Low: Leisurely, Med: Moderate laps, High: Vigorous laps"
+      }
+    }
+  }
+}

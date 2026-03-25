@@ -1,0 +1,1189 @@
+{
+    "_comment": "Hybrid portion sizes: 1) Check 'foods' for exact matches, 2) Pattern match in 'food_patterns', 3) Default",
+    "default_portion_size": 100,
+    "default_is_perishable": false,
+    "foods": {
+        "_comment": "Exact food name matches for edge cases that don't fit patterns"
+    },
+    "food_patterns": {
+        "canned": {
+            "pack_size": 400,
+            "is_perishable": true,
+            "_note": "Must use whole can"
+        },
+        "tinned": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "beef mince": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "beef steak": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "beef roast": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "beef liver": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "beef": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "pork chop": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "pork loin": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "pork mince": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "pork": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "lamb chop": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "lamb mince": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "lamb": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "veal": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "venison": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "bison": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "game meat": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "goat": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "chicken breast": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "chicken thigh": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "chicken drumstick": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "chicken wing": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "chicken liver": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "chicken, whole": {
+            "pack_size": 1500,
+            "is_perishable": true
+        },
+        "chicken": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "turkey breast": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "turkey mince": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "turkey": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "duck": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "goose": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "pheasant": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "quail": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "ostrich": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "emu": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "bacon": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "ham": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "sausage": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "frankfurter": {
+            "pack_size": 350,
+            "is_perishable": true
+        },
+        "hot dog": {
+            "pack_size": 350,
+            "is_perishable": true
+        },
+        "bologna": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "salami": {
+            "pack_size": 100,
+            "is_perishable": true
+        },
+        "pepperoni": {
+            "pack_size": 100,
+            "is_perishable": true
+        },
+        "chorizo": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "prosciutto": {
+            "pack_size": 100,
+            "is_perishable": true
+        },
+        "salmon fillet": {
+            "pack_size": 260,
+            "is_perishable": true
+        },
+        "salmon, smoked": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "salmon": {
+            "pack_size": 260,
+            "is_perishable": true
+        },
+        "cod": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "haddock": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "trout": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "sea bass": {
+            "pack_size": 280,
+            "is_perishable": true
+        },
+        "tilapia": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "pollock": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "halibut": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "sole": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "plaice": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "herring": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "mackerel, raw": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "mackerel": {
+            "pack_size": 125,
+            "is_perishable": true,
+            "_note": "Canned default"
+        },
+        "tuna steak": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "tuna": {
+            "pack_size": 145,
+            "is_perishable": true,
+            "_note": "Canned default"
+        },
+        "sardine": {
+            "pack_size": 120,
+            "is_perishable": true
+        },
+        "anchovy": {
+            "pack_size": 50,
+            "is_perishable": true
+        },
+        "fish": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "shrimp": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "prawn": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "crab": {
+            "pack_size": 170,
+            "is_perishable": true
+        },
+        "lobster": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "mussel": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "clam": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "oyster": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "scallop": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "squid": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "octopus": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "mollusk": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "crustacean": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "egg, dried": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "egg": {
+            "pack_size": 360,
+            "is_perishable": true,
+            "_note": "6 eggs x 60g"
+        },
+        "milk, powder": {
+            "pack_size": 400,
+            "is_perishable": false
+        },
+        "milk, dried": {
+            "pack_size": 400,
+            "is_perishable": false
+        },
+        "milk, evaporated": {
+            "pack_size": 410,
+            "is_perishable": true
+        },
+        "milk, condensed": {
+            "pack_size": 397,
+            "is_perishable": true
+        },
+        "milk": {
+            "pack_size": 2000,
+            "is_perishable": true
+        },
+        "cream": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "yogurt": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "yoghurt": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "butter": {
+            "pack_size": 250,
+            "is_perishable": true
+        },
+        "margarine": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "cheese, cottage": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "cheese, cream": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "cheese, parmesan": {
+            "pack_size": 100,
+            "is_perishable": true
+        },
+        "cheese, ricotta": {
+            "pack_size": 250,
+            "is_perishable": true
+        },
+        "cheese, mozzarella": {
+            "pack_size": 250,
+            "is_perishable": true
+        },
+        "cheese, feta": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "cheese, brie": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "cheese, cheddar": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "cheese, swiss": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "cheese, gouda": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "cheese": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "ice cream": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "frozen novelties": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "tomato, raw": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "tomato": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "potato": {
+            "pack_size": 2500,
+            "is_perishable": true
+        },
+        "sweet potato": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "carrot": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "onion": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "garlic": {
+            "pack_size": 50,
+            "is_perishable": true
+        },
+        "ginger": {
+            "pack_size": 100,
+            "is_perishable": true
+        },
+        "broccoli": {
+            "pack_size": 350,
+            "is_perishable": true
+        },
+        "cauliflower": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "cabbage": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "brussels": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "spinach": {
+            "pack_size": 240,
+            "is_perishable": true
+        },
+        "kale": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "lettuce": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "romaine": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "arugula": {
+            "pack_size": 100,
+            "is_perishable": true
+        },
+        "rocket": {
+            "pack_size": 100,
+            "is_perishable": true
+        },
+        "pepper, bell": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "pepper, sweet": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "peppers": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "mushroom": {
+            "pack_size": 250,
+            "is_perishable": true
+        },
+        "cucumber": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "celery": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "asparagus": {
+            "pack_size": 250,
+            "is_perishable": true
+        },
+        "corn": {
+            "pack_size": 340,
+            "is_perishable": true
+        },
+        "peas, frozen": {
+            "pack_size": 900,
+            "is_perishable": true
+        },
+        "peas": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "green bean": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "snap": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "squash": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "courgette": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "zucchini": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "aubergine": {
+            "pack_size": 350,
+            "is_perishable": true
+        },
+        "eggplant": {
+            "pack_size": 350,
+            "is_perishable": true
+        },
+        "parsnip": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "beetroot": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "turnip": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "radish": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "leek": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "artichoke": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "avocado": {
+            "pack_size": 320,
+            "is_perishable": true
+        },
+        "frozen": {
+            "pack_size": 900,
+            "is_perishable": true,
+            "_note": "Frozen veg default"
+        },
+        "apple": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "banana": {
+            "pack_size": 750,
+            "is_perishable": true
+        },
+        "orange": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "lemon": {
+            "pack_size": 250,
+            "is_perishable": true
+        },
+        "lime": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "grapefruit": {
+            "pack_size": 600,
+            "is_perishable": true
+        },
+        "pear": {
+            "pack_size": 900,
+            "is_perishable": true
+        },
+        "peach": {
+            "pack_size": 600,
+            "is_perishable": true
+        },
+        "nectarine": {
+            "pack_size": 600,
+            "is_perishable": true
+        },
+        "plum": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "apricot": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "cherry": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "grape": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "strawberry": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "blueberry": {
+            "pack_size": 150,
+            "is_perishable": true
+        },
+        "raspberry": {
+            "pack_size": 150,
+            "is_perishable": true
+        },
+        "blackberry": {
+            "pack_size": 150,
+            "is_perishable": true
+        },
+        "cranberry": {
+            "pack_size": 150,
+            "is_perishable": true
+        },
+        "melon": {
+            "pack_size": 1500,
+            "is_perishable": true
+        },
+        "cantaloupe": {
+            "pack_size": 1500,
+            "is_perishable": true
+        },
+        "watermelon": {
+            "pack_size": 2000,
+            "is_perishable": true
+        },
+        "honeydew": {
+            "pack_size": 1500,
+            "is_perishable": true
+        },
+        "pineapple": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "mango": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "papaya": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "kiwi": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "fig, raw": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "fig": {
+            "pack_size": 250,
+            "is_perishable": false,
+            "_note": "Dried default"
+        },
+        "date": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "raisin": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "prune": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "dried": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "beans, dried": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "beans, raw": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "beans": {
+            "pack_size": 400,
+            "is_perishable": true,
+            "_note": "Canned default"
+        },
+        "lima beans": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "cowpeas": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "chickpea": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "lentil, dried": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "lentil": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "soybeans": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "tofu": {
+            "pack_size": 280,
+            "is_perishable": true
+        },
+        "tempeh": {
+            "pack_size": 200,
+            "is_perishable": true
+        },
+        "hummus": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "rice": {
+            "pack_size": 1000,
+            "is_perishable": false
+        },
+        "pasta": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "spaghetti": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "noodle": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "couscous": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "quinoa": {
+            "pack_size": 300,
+            "is_perishable": false
+        },
+        "bulgur": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "barley": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "millet": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "farro": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "polenta": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "cereals ready-to-eat": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "cereals": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "oat": {
+            "pack_size": 1000,
+            "is_perishable": false
+        },
+        "granola": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "muesli": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "flour": {
+            "pack_size": 1500,
+            "is_perishable": false
+        },
+        "cornmeal": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "wheat": {
+            "pack_size": 1000,
+            "is_perishable": false
+        },
+        "bread": {
+            "pack_size": 800,
+            "is_perishable": true
+        },
+        "rolls": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "bagel": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "muffin": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "croissant": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "biscuit": {
+            "pack_size": 300,
+            "is_perishable": false
+        },
+        "cracker": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "tortilla": {
+            "pack_size": 360,
+            "is_perishable": true
+        },
+        "pita": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "naan": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "pancake": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "waffle": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "cookie": {
+            "pack_size": 300,
+            "is_perishable": false
+        },
+        "cake": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "pie": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "pastry": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "brownie": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "donut": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "pudding": {
+            "pack_size": 150,
+            "is_perishable": true
+        },
+        "custard": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "frosting": {
+            "pack_size": 400,
+            "is_perishable": false
+        },
+        "nuts": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "almond": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "walnut": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "cashew": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "peanut": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "pistachio": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "hazelnut": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "pecan": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "macadamia": {
+            "pack_size": 150,
+            "is_perishable": false
+        },
+        "brazil": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "chestnut": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "seeds": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "sunflower": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "pumpkin seed": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "chia": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "flax": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "sesame": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "oil": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "olive oil": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "shortening": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "lard": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "peanut butter": {
+            "pack_size": 340,
+            "is_perishable": false
+        },
+        "almond butter": {
+            "pack_size": 170,
+            "is_perishable": false
+        },
+        "jam": {
+            "pack_size": 454,
+            "is_perishable": false
+        },
+        "jelly": {
+            "pack_size": 454,
+            "is_perishable": false
+        },
+        "marmalade": {
+            "pack_size": 454,
+            "is_perishable": false
+        },
+        "honey": {
+            "pack_size": 340,
+            "is_perishable": false
+        },
+        "syrup": {
+            "pack_size": 340,
+            "is_perishable": false
+        },
+        "molasses": {
+            "pack_size": 450,
+            "is_perishable": false
+        },
+        "sauce": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "salsa": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "salad dressing": {
+            "pack_size": 250,
+            "is_perishable": true
+        },
+        "mayonnaise": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "ketchup": {
+            "pack_size": 460,
+            "is_perishable": false
+        },
+        "mustard": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "gravy": {
+            "pack_size": 300,
+            "is_perishable": true
+        },
+        "tomato products": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "pickle": {
+            "pack_size": 400,
+            "is_perishable": false
+        },
+        "vinegar": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "soup": {
+            "pack_size": 400,
+            "is_perishable": true
+        },
+        "juice": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "orange juice": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "grapefruit juice": {
+            "pack_size": 1000,
+            "is_perishable": true
+        },
+        "beverages": {
+            "pack_size": 500,
+            "is_perishable": true
+        },
+        "alcoholic beverage": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "wine": {
+            "pack_size": 750,
+            "is_perishable": false
+        },
+        "beer": {
+            "pack_size": 500,
+            "is_perishable": false
+        },
+        "tea": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "coffee": {
+            "pack_size": 250,
+            "is_perishable": false
+        },
+        "snacks": {
+            "pack_size": 150,
+            "is_perishable": false
+        },
+        "candies": {
+            "pack_size": 150,
+            "is_perishable": false
+        },
+        "candy": {
+            "pack_size": 150,
+            "is_perishable": false
+        },
+        "chocolate": {
+            "pack_size": 100,
+            "is_perishable": false
+        },
+        "chip": {
+            "pack_size": 150,
+            "is_perishable": false
+        },
+        "popcorn": {
+            "pack_size": 100,
+            "is_perishable": false
+        },
+        "pretzel": {
+            "pack_size": 200,
+            "is_perishable": false
+        },
+        "formulated bar": {
+            "pack_size": 60,
+            "is_perishable": false
+        },
+        "protein bar": {
+            "pack_size": 60,
+            "is_perishable": false
+        },
+        "sugar": {
+            "pack_size": 1000,
+            "is_perishable": false
+        },
+        "salt": {
+            "pack_size": 750,
+            "is_perishable": false
+        },
+        "spices": {
+            "pack_size": 50,
+            "is_perishable": false
+        },
+        "seasoning": {
+            "pack_size": 50,
+            "is_perishable": false
+        },
+        "herb": {
+            "pack_size": 25,
+            "is_perishable": false
+        },
+        "seaweed": {
+            "pack_size": 25,
+            "is_perishable": false
+        }
+    }
+}
