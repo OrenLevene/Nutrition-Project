@@ -72,57 +72,53 @@ class FoodDatabase:
         """Loads food data from a CSV file."""
         import csv
         
-        # Mapping from CSV Headers (base_nutrition_sample.csv) to our JSON/Internal keys
-        # Note: CSV units are converted or matched to internal units.
-        # Key: CSV Header -> Value: Internal Key
+        # Mapping from CSV Headers (reference_unified_gold.csv) to our JSON/Internal keys
         header_mapping = {
             # Macros
-            "Energy (KCAL)": "calories", # or Energy (Atwater Specific Factors) (KCAL)
-            "Protein (G)": "protein",
-            "Total lipid (fat) (G)": "fat",
-            "Carbohydrate, by difference (G)": "carbs", # Using 'by difference' as standard
+            "Calories (kcal)": "calories",
+            "Protein (g)": "protein",
+            "Fat (g)": "fat",
+            "Carbohydrate (g)": "carbohydrate",
             
             # Vitamins
-            "Vitamin A, RAE (UG)": "Vitamin A (mcg RAE)", 
-            "Vitamin C, total ascorbic acid (MG)": "Vitamin C (mg)",
-            "Vitamin D (D2 + D3) (UG)": "Vitamin D (mcg)",
-            "Vitamin E (alpha-tocopherol) (MG)": "Vitamin E (mg)",
-            "Vitamin K (phylloquinone) (UG)": "Vitamin K (mcg)", # Phylloquinone is K1, typically main dietary source
-            "Thiamin (MG)": "Thiamin (B1) (mg)",
-            "Riboflavin (MG)": "Riboflavin (B2) (mg)",
-            "Niacin (MG)": "Niacin (B3) (mg NE)",
-            "Vitamin B-6 (MG)": "Vitamin B6 (mg)",
-            "Folate, DFE (UG)": "Folate (mcg DFE)",
-            "Vitamin B-12 (UG)": "Vitamin B12 (mcg)",
-            "Biotin (UG)": "Biotin (mcg)",
-            "Pantothenic acid (MG)": "Pantothenic Acid (mg)",
+            "Vitamin A (ug)": "Vitamin A (mcg RAE)", 
+            "Vitamin C (mg)": "Vitamin C (mg)",
+            "Vitamin D (ug)": "Vitamin D (mcg)",
+            "Vitamin E (mg)": "Vitamin E (mg)",
+            "Vitamin K (ug)": "Vitamin K (mcg)",
+            "Thiamin (mg)": "Thiamin (B1) (mg)",
+            "Riboflavin (mg)": "Riboflavin (B2) (mg)",
+            "Niacin (mg)": "Niacin (B3) (mg NE)",
+            "Vitamin B6 (mg)": "Vitamin B6 (mg)",
+            "Folate (ug)": "Folate (mcg DFE)",
+            "Vitamin B12 (ug)": "Vitamin B12 (mcg)",
+            "Biotin (ug)": "Biotin (mcg)",
+            "Pantothenic Acid (mg)": "Pantothenic Acid (mg)",
             
             # Minerals
-            "Calcium, Ca (MG)": "Calcium (mg)",
-            "Iron, Fe (MG)": "Iron (mg)",
-            "Magnesium, Mg (MG)": "Magnesium (mg)",
-            "Phosphorus, P (MG)": "Phosphorus (mg)",
-            "Potassium, K (MG)": "Potassium (mg)",
-            "Sodium, Na (MG)": "Sodium (mg)",
-            "Zinc, Zn (MG)": "Zinc (mg)",
-            "Iodine, I (UG)": "Iodine (mcg)",
-            "Selenium, Se (UG)": "Selenium (mcg)",
-            "Copper, Cu (MG)": "Copper (mg)", 
-            "Manganese, Mn (MG)": "Manganese (mg)",
-            "Molybdenum, Mo (UG)": "Molybdenum (mcg)",
+            "Calcium (mg)": "Calcium (mg)",
+            "Iron (mg)": "Iron (mg)",
+            "Magnesium (mg)": "Magnesium (mg)",
+            "Phosphorus (mg)": "Phosphorus (mg)",
+            "Potassium (mg)": "Potassium (mg)",
+            "Sodium (mg)": "Sodium (mg)",
+            "Zinc (mg)": "Zinc (mg)",
+            "Iodine (ug)": "Iodine (mcg)",
+            "Selenium (ug)": "Selenium (mcg)",
+            "Copper (mg)": "Copper (mg)", 
+            "Manganese (mg)": "Manganese (mg)",
             
             # Other
-            "Choline, total (MG)": "Choline (mg)",
-            "Fiber, total dietary (G)": "Fiber (g)",
-            "PUFA 18:3 n-3 c,c,c (ALA) (G)": "Omega-3 (ALA) (g)",
-            "PUFA 18:2 n-6 c,c (G)": "Omega-6 (Linoleic) (g)",
+            "Choline (mg)": "Choline (mg)",
+            "Fiber (g)": "Fiber (g)",
+            "Omega-3 (g)": "Omega-3 (ALA) (g)",
+            "Omega-6 (g)": "Omega-6 (Linoleic) (g)",
             
             # Extended Macros (Sugar, Fats)
-            "Sugars, Total (G)": "Sugar (g)",
-            "Total Sugars (G)": "Sugar (g)",  # Alternative column name
-            "Fatty acids, total saturated (G)": "Saturated Fat (g)",
-            "Fatty acids, total monounsaturated (G)": "Monounsaturated Fat (g)",
-            "Fatty acids, total polyunsaturated (G)": "Polyunsaturated Fat (g)"
+            "Sugars (g)": "Sugar (g)",
+            "Saturated Fat (g)": "Saturated Fat (g)",
+            "Monounsaturated Fat (g)": "Monounsaturated Fat (g)",
+            "Polyunsaturated Fat (g)": "Polyunsaturated Fat (g)"
         }
         
         try:
@@ -130,19 +126,18 @@ class FoodDatabase:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     # Basic validation or skipping logic could go here
-                    if not row.get("fdc_id"): continue
+                    if not row.get("ref_name"): continue
                     
                     try:
                         # Extract basic info
-                        fdc_id = row.get("fdc_id")
-                        name = row.get("description", "Unknown Food")
+                        fdc_id = row.get("source_id", row.get("ref_name"))
+                        name = row.get("ref_name", "Unknown Food")
                         
                         # Calories (try different headers if needed, using generic priority)
-                        calories = float(row.get("Energy (KCAL)", 0) or row.get("Energy (Atwater Specific Factors) (KCAL)", 0) or 0)
+                        calories = float(row.get("Calories (kcal)", 0) or 0)
                         
                         nutrients = {}
                         for csv_header, internal_key in header_mapping.items():
-                             # Skip calories/macros loop if handled separately, but we put them in nutrients dict too except calories usually stored on object
                              val_str = row.get(csv_header, "0")
                              try:
                                  val = float(val_str) if val_str else 0.0
@@ -150,9 +145,6 @@ class FoodDatabase:
                                  val = 0.0
                              
                              nutrients[internal_key] = val
-                        
-                        # Handle specific manual fields to ensure objects fields are populated
-                        # nutrients['protein'] is already populated by loop if in mapping
                         
                         food_item = FoodItem(
                             id=fdc_id,
@@ -163,7 +155,7 @@ class FoodDatabase:
                         self.foods.append(food_item)
 
                     except ValueError as e:
-                        print(f"Skipping row {row.get('fdc_id', '?')}: {e}")
+                        print(f"Skipping row {row.get('ref_name', '?')}: {e}")
                         
         except FileNotFoundError:
             print(f"Error: File not found at {filepath}")

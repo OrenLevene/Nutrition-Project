@@ -121,7 +121,6 @@ def build_gold_reference():
     
     # Load Silver sources
     try:
-        silver_foodb = pd.read_csv(DATA_SILVER / 'foodb.csv')
         silver_cofid = pd.read_csv(DATA_SILVER / 'cofid.csv')
         silver_usda = pd.read_csv(DATA_SILVER / 'usda.csv')
     except FileNotFoundError as e:
@@ -129,17 +128,11 @@ def build_gold_reference():
         print("Please run pipeline/reference/silver/build_silver.py first.")
         return
         
-    print(f"Loaded FooDB Silver: {len(silver_foodb)} foods")
     print(f"Loaded CoFID Silver: {len(silver_cofid)} foods")
     print(f"Loaded USDA Silver: {len(silver_usda)} foods")
     
-    # Merge FooDB and CoFID first to resolve duplicate columns internally
-    foodb_cofid = merge_databases(silver_foodb, silver_cofid)
-    foodb_cofid = consolidate_duplicate_columns(foodb_cofid)
-    
-    # Extract CoFID entries only (FooDB entries overlap with USDA heavily)
-    cofid = foodb_cofid[foodb_cofid['data_source'] == 'UK_CoFID'].copy()
-    print(f"  CoFID subset extracted: {len(cofid)} foods")
+    # CoFID is already standardized in the Silver layer
+    cofid = silver_cofid.copy()
     
     # Find common columns between USDA and CoFID
     usda_cols_lower = {c.lower(): c for c in silver_usda.columns}
@@ -154,9 +147,15 @@ def build_gold_reference():
                 
     cofid_renamed = cofid.rename(columns=column_mapping)
     
+    # Add source_id for label mapping
+    if 'food_code' in cofid_renamed.columns:
+        cofid_renamed['source_id'] = 'cofid_' + cofid_renamed['food_code'].astype(str)
+    if 'fdc_id' in silver_usda.columns:
+        silver_usda['source_id'] = 'usda_' + silver_usda['fdc_id'].astype(str)
+
     # Key columns to keep (must exist in both)
-    keep_cols = ['description'] + [c for c in silver_usda.columns if c != 'description' and c in cofid_renamed.columns]
-    print(f"Shared nutrient columns: {len(keep_cols) - 1}")
+    keep_cols = ['source_id', 'description'] + [c for c in silver_usda.columns if c not in ['source_id', 'description'] and c in cofid_renamed.columns]
+    print(f"Shared nutrient columns: {len(keep_cols) - 2}")
     
     # Prepare subsets
     usda_subset = silver_usda[keep_cols].copy()
@@ -171,6 +170,17 @@ def build_gold_reference():
     print(f"Duplicate names removed (preferring USDA): {dupes.sum()}")
     combined = combined[~dupes].reset_index(drop=True)
     
+    # --- LOAD LABELS AND MERGE ---
+    labels_file = 'C:/tmp/food_type_labels_llm.csv'
+    try:
+        labels = pd.read_csv(labels_file, header=None, names=['source_id', 'food_type_label'])
+        # Drop duplicates in labels just to be safe (we had overlapping batches)
+        labels = labels.drop_duplicates(subset=['source_id'], keep='last')
+        combined = pd.merge(combined, labels, on='source_id', how='left')
+    except Exception as e:
+        print(f"Error loading labels from {labels_file}: {e}")
+        return
+        
     print(f"\nGOLD reference DB ready: {len(combined)} foods")
     print(f"  USDA: {(combined['data_source']=='USDA').sum()}")
     print(f"  CoFID: {(combined['data_source']=='UK_CoFID').sum()}")
@@ -184,9 +194,23 @@ def build_gold_reference():
             
     # Save Gold
     DATA_GOLD.mkdir(parents=True, exist_ok=True)
-    gold_path = DATA_GOLD / 'gold_ref_food_db.csv'
-    combined.to_csv(gold_path, index=False)
-    print(f"\nSUCCESS: Saved GOLD reference database: {gold_path} ({len(combined)} foods)")
+    
+    unified_gold = combined[combined['food_type_label'].isin(['single', 'category'])]
+    composite_gold = combined[combined['food_type_label'] == 'composite']
+    unlabeled = combined[combined['food_type_label'].isna()]
+    
+    if len(unlabeled) > 0:
+        print(f"WARNING: {len(unlabeled)} foods missed classification.")
+        print(unlabeled[['source_id', 'description']].head())
+    
+    unified_path = DATA_GOLD / 'unified_gold.csv'
+    composite_path = DATA_GOLD / 'composite_gold.csv'
+    
+    unified_gold.to_csv(unified_path, index=False)
+    composite_gold.to_csv(composite_path, index=False)
+    
+    print(f"\nSUCCESS: Saved {unified_path} ({len(unified_gold)} foods, single/category)")
+    print(f"SUCCESS: Saved {composite_path} ({len(composite_gold)} foods, composite)")
 
 
 if __name__ == '__main__':

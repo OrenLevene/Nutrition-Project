@@ -1,0 +1,50 @@
+<html><head><style>body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; } code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }</style></head><body><h1>Formal Specification: N-Day Dietary Optimization Problem</h1>
+<h2>1. Problem Overview</h2>
+<p>The objective is to generate an N-day meal plan (typically N=7) from a database of thousands of foods. The output must consist of both an aggregated grocery list and a daily breakdown of foods and quantities. </p>
+<p>The generated plan must mathematically guarantee complete nutritional adequacy (meeting minimums for 27+ micronutrients) without violating safety upper bounds (e.g., max saturated fat, max red meat), while simultaneously ensuring the plan is highly varied, palatable, and balanced from day to day.</p>
+<hr />
+<h2>2. Decision Variables</h2>
+<p>For each food <code>i</code> in the <code>Foods</code> database and each day <code>j</code> from 1 to N:
+* <code>x(i,j)</code>: The quantity (in grams) of food <code>i</code> consumed on day <code>j</code>.
+* <code>y(i,j)</code>: A binary variable indicating whether food <code>i</code> is consumed on day <code>j</code> (1 if yes, 0 if no).</p>
+<hr />
+<h2>3. Hard Constraints (Strict Mathematical Bounds)</h2>
+<p>A solution is considered <strong>infeasible</strong> if any of the following constraints are violated:</p>
+<h3>A. Nutritional Adequacy (N-Day Aggregates)</h3>
+<ul>
+<li><strong>Minimums:</strong> The sum of each nutrient over N days must meet or exceed the N-day minimum target (RDA * N). This applies to ~27 essential vitamins and minerals.</li>
+<li><strong>Maximums:</strong> The sum of specific nutrients (Fat, Saturated Fat, Sugar, Sodium) over N days must be strictly less than or equal to their N-day maximum limits.</li>
+<li><strong>Calories:</strong> Total calories over N days must exactly equal (or fall within a strict +/- 1% bound of) Target Calories * N.</li>
+</ul>
+<h3>B. Health &amp; Realism Limits</h3>
+<ul>
+<li><strong>Red Meat Limit:</strong> Total red meat consumption over N days must be &lt;= 500g.</li>
+<li><strong>Processed Meat Limit:</strong> Total processed meat consumption over N days must be &lt;= 70g.</li>
+<li><strong>Culinary Limits:</strong> Quantities of specific categories (e.g., dried spices, fresh herbs, liquids) must not exceed realistic human consumption thresholds (e.g., dried spices &lt;= 30g over N days).</li>
+<li><strong>Portion Limits:</strong> For any food <code>i</code>, <code>x(i,j)</code> must not exceed a realistic daily maximum (e.g., 300g).</li>
+<li><strong>Non-Negativity:</strong> <code>x(i,j)</code> must be &gt;= 0.</li>
+</ul>
+<hr />
+<h2>4. Soft Constraints (Optimization Objectives / Penalties)</h2>
+<p>While satisfying the hard constraints, the algorithm should optimize the following criteria (either as a weighted multi-objective function or hierarchical constraints):</p>
+<h3>A. Daily Consistency (Scheduling)</h3>
+<ul>
+<li><strong>Macro Balance:</strong> Total calories, protein, carbs, and fat consumed on day <code>j</code> should ideally equal the exact daily target, with an allowed deviation of +/- 10%.</li>
+<li><strong>Micro Balance:</strong> Vitamins and minerals should ideally be spread across the N days rather than consumed all at once, with an allowed deviation of +/- 30% per day.</li>
+</ul>
+<h3>B. Variety &amp; Diversity</h3>
+<ul>
+<li><strong>Unique Foods:</strong> Maximize the total number of unique foods used across the N days.</li>
+<li><strong>Trio Repetition:</strong> Minimize the repetition of the exact same 3-food combinations (trios). A specific trio should not appear more than <code>Round(N/3)</code> times.</li>
+</ul>
+<h3>C. Palatability (Culinary Cohesion)</h3>
+<ul>
+<li><strong>Minimum Seasonings:</strong> Each day <code>j</code> must ideally contain a minimum of 3 "seasoning" items (defined as spices, herbs, or sauces) to ensure the food is flavorful.</li>
+</ul>
+<hr />
+<h2>5. Current Challenges &amp; Complexity</h2>
+<ol>
+<li><strong>The "Multivitamin Pill" Problem:</strong> The algorithm easily finds single, highly-dense foods (e.g., liver, yeast extract, massive piles of dried thyme) to instantly satisfy the micronutrient constraints, leading to highly unnatural diets. We currently use regex filters and grouping to prevent this, but it requires careful tuning.</li>
+<li><strong>Conflicting Constraints:</strong> Finding a plan that hits 27 minimums without exceeding the fat/calorie maximum is mathematically dense. </li>
+<li><strong>Continuous vs Discrete:</strong> While ingredient quantities (<code>x(i,j)</code>) are continuous, constraints involving variety, trios, and minimum daily seasonings require boolean logic (<code>y(i,j)</code>), turning this into a complex Mixed-Integer Problem (MIP) that scales poorly over a massive database.</li>
+</ol></body></html>

@@ -61,7 +61,8 @@ def clean_nutrient_columns(df):
                  'description.1', 'food_category', 'food_category_id', 
                  'data_type', 'publication_date',
                  'brand_owner', 'gtin_upc', 'ingredients', 
-                 'serving_size', 'serving_size_unit', 'household_serving']
+                 'serving_size', 'serving_size_unit', 'household_serving',
+                 'semantic_descriptor', 'Total Weight (g)']
     meta_cols_set = set(c for c in meta_cols if c in df.columns)
     
     for col in df.columns:
@@ -105,7 +106,9 @@ def standardize_column_names(df):
     # we enforce a strict hierarchy. The first one in the list wins.
     priority_rules = {
         'Folate (ug)': [
-            'Folate, DFE (UG)', 'Folate, food (UG)', 'Folate, total (UG)', 
+            # Prefer natural food folate (µg) over DFE (µg DFE) to align with CoFID.
+            # For >99% of USDA foods (unfortified) these are equal anyway.
+            'Folate, food (UG)', 'Folate, total (UG)', 'Folate, DFE (UG)',
             'Folic acid (UG)', 'Folate (UG)', 'Folate'
         ],
         'Fiber (g)': [
@@ -137,12 +140,18 @@ def standardize_column_names(df):
         ]
     }
     
+    new_cols = {}
+    cols_to_drop = []
     for target, ordered_originals in priority_rules.items():
         existing = [c for c in ordered_originals if c in df.columns]
         if existing:
             # Take the first non-null according to our strictly prioritized list
-            df[target] = df[existing].bfill(axis=1).iloc[:, 0]
-            df = df.drop(columns=existing)
+            new_cols[target] = df[existing].bfill(axis=1).iloc[:, 0]
+            cols_to_drop.extend(existing)
+            
+    if new_cols:
+        df = df.drop(columns=cols_to_drop)
+        df = pd.concat([df, pd.DataFrame(new_cols, index=df.index)], axis=1)
 
     name_mappings = {
         # === MACRONUTRIENTS ===
@@ -303,24 +312,29 @@ def standardize_column_names(df):
     if rename_dict:
         df = df.rename(columns=rename_dict)
     
-    # === UNIT CONVERSION for FooDB MG_100G columns ===
+    # === UNIT CONVERSION for FooDB MG_100G / KJ_100G columns ===
     # FooDB stores nutrients as mg per 100g. We need to convert:
-    #   - Macros (Protein, Fat, Carbs, Fiber etc.): divide by 1000 → grams
-    #   - Micros (Calcium, Iron etc.): keep as-is → mg  
-    #   - Energy: keep as-is → kcal
-    mg100g_cols = [c for c in df.columns if 'MG_100G' in c or 'MG_100 G' in c or 'KCAL_100G' in c]
+    #   - Macros (Protein, Fat, Carbs, Fiber etc.): divide by 1000 -> grams
+    #   - Micros (Calcium, Iron etc.): keep as-is -> mg  
+    #   - Energy (KCAL_100G): keep as-is -> kcal
+    #   - Energy (KJ_100G): divide by 4.184 -> kcal
+    mg100g_cols = [c for c in df.columns if 'MG_100G' in c or 'MG_100 G' in c or 'KCAL_100G' in c or 'KJ_100G' in c]
     
     for col in mg100g_cols:
         # Extract the nutrient name from patterns like "Calcium (MG_100G)" or "Protein (MG_100 G)"
-        clean_name = col.replace(' (MG_100G)', '').replace(' (MG_100 G)', '').replace(' (KCAL_100G)', '')
+        clean_name = col.replace(' (MG_100G)', '').replace(' (MG_100 G)', '').replace(' (KCAL_100G)', '').replace(' (KJ_100G)', '')
         
         # Determine target name and conversion
         # Macros should be in grams, so divide by 1000
         macro_keywords = ['Protein', 'Fat', 'Carbohydrate', 'Fiber', 'Ash', 'Water', 'Alcohol']
         is_macro = any(kw.lower() in clean_name.lower() for kw in macro_keywords)
-        is_energy = 'KCAL' in col
+        is_energy_kcal = 'KCAL' in col
+        is_energy_kj = 'KJ' in col
         
-        if is_energy:
+        if is_energy_kj:
+            target_name = 'Calories (kcal)'
+            converted = df[col] / 4.184  # kJ -> kcal
+        elif is_energy_kcal:
             target_name = 'Calories (kcal)'
             converted = df[col]  # already kcal
         elif is_macro:
@@ -355,12 +369,14 @@ def standardize_column_names(df):
         def first_valid(col):
             return col.bfill(axis=1).iloc[:, 0]
         
-        # Get duplicate names
         dup_names = df.columns[df.columns.duplicated()].unique()
+        new_cols = {}
         for name in dup_names:
-            combined = first_valid(df[name])
+            new_cols[name] = first_valid(df[name])
             df = df.drop(columns=[name])
-            df[name] = combined
+            
+        if new_cols:
+            df = pd.concat([df, pd.DataFrame(new_cols, index=df.index)], axis=1)
 
     # === IMPOSSIBLE VALUE CAPPING ===
     # Enforce physical reality on 100g basis: 
@@ -375,24 +391,39 @@ def standardize_column_names(df):
 
     # === IMPUTE MISSING AGGREGATES ===
     # Automatically sum missing omega aggregations from their explicitly mapped sub-components.
+    new_cols = {}
     if 'Omega-3 (g)' not in df.columns:
-        df['Omega-3 (g)'] = np.nan
+        o3_col = pd.Series(np.nan, index=df.index)
+    else:
+        o3_col = df['Omega-3 (g)']
+        
     o3_parts = [c for c in ['ALA (g)', 'EPA (g)', 'DHA (g)'] if c in df.columns]
     if o3_parts:
-        df['Omega-3 (g)'] = df['Omega-3 (g)'].fillna(df[o3_parts].sum(axis=1, min_count=1))
+        o3_col = o3_col.fillna(df[o3_parts].sum(axis=1, min_count=1))
+    new_cols['Omega-3 (g)'] = o3_col
         
     if 'Omega-6 (g)' not in df.columns:
-        df['Omega-6 (g)'] = np.nan
+        o6_col = pd.Series(np.nan, index=df.index)
+    else:
+        o6_col = df['Omega-6 (g)']
+        
     o6_parts = [c for c in ['Linoleic Acid (g)', 'Arachidonic Acid (g)'] if c in df.columns]
     if o6_parts:
-        df['Omega-6 (g)'] = df['Omega-6 (g)'].fillna(df[o6_parts].sum(axis=1, min_count=1))
+        o6_col = o6_col.fillna(df[o6_parts].sum(axis=1, min_count=1))
+    new_cols['Omega-6 (g)'] = o6_col
+
+    cols_to_drop = [c for c in ['Omega-3 (g)', 'Omega-6 (g)'] if c in df.columns]
+    if cols_to_drop:
+        df = df.drop(columns=cols_to_drop)
+    df = pd.concat([df, pd.DataFrame(new_cols, index=df.index)], axis=1)
 
     # === WHITELIST FILTERING ===
     # Drop all obscure, hyper-granular lipid/amino acid columns and keep only obvious top-level nutrients.
+    # Removed: Water, Ash (not optimisation targets), Energy kJ (redundant with kcal),
+    # Sugar sub-types (Starch, Glucose, Fructose, Sucrose, Lactose, Maltose — sub-components)
     APPROVED_NUTRIENTS = {
-        'Calories (kcal)', 'Energy (kJ)', 'Protein (g)', 'Carbohydrate (g)', 'Fat (g)', 
-        'Fiber (g)', 'Sugars (g)', 'Water (g)', 'Ash (g)', 'Alcohol (g)',
-        'Starch (g)', 'Glucose (g)', 'Fructose (g)', 'Sucrose (g)', 'Lactose (g)', 'Maltose (g)',
+        'Calories (kcal)', 'Protein (g)', 'Carbohydrate (g)', 'Fat (g)', 
+        'Fiber (g)', 'Sugars (g)',
         'Saturated Fat (g)', 'Monounsaturated Fat (g)', 'Polyunsaturated Fat (g)', 
         'Trans Fat (g)', 'Omega-3 (g)', 'Omega-6 (g)', 'EPA (g)', 'DHA (g)', 'ALA (g)', 
         'Cholesterol (mg)',
@@ -406,18 +437,20 @@ def standardize_column_names(df):
         'Caffeine (mg)'
     }
     
+    # Removed: food_category_id (numeric), ndb_number (numeric), publication_date (date),
+    # food_type ('Type 1'/'Type 2' — not useful)
+    # Kept text metadata: name_scientific, wikipedia_id, description.1, food_code
     REFERENCE_META_COLS = {
-        'food_id', 'description', 'food_code', 'name_scientific', 
-        'food_group', 'food_subgroup', 'food_type', 'data_source',
-        'fdc_id', 'ndb_number', 'wikipedia_id', 'category',
-        'description.1', 'food_category', 'food_category_id',
-        'data_type', 'publication_date',
+        'food_id', 'description', 'food_code', 'name_scientific',
+        'food_group', 'food_subgroup', 'food_category',
+        'fdc_id', 'category', 'wikipedia_id', 'description.1',
+        'data_source', 'data_type',
         'brand_owner', 'gtin_upc', 'ingredients',
         'serving_size', 'serving_size_unit', 'household_serving',
         'quantity', 'main_category_en', 'countries_en', 'allergens',
         'traces', 'additives_tags', 'nutriscore_grade', 'nova_group',
         'image_url', 'image_small_url', 'image_ingredients_url', 'ingredients_text',
-        'Total Weight (g)'
+        'Total Weight (g)', 'semantic_descriptor'
     }
     
     keep_cols = [c for c in df.columns if c in APPROVED_NUTRIENTS or c in REFERENCE_META_COLS]
@@ -428,17 +461,80 @@ def standardize_column_names(df):
 def sort_columns(df):
     """Sort columns: metadata first, then nutrients alphabetically."""
     REFERENCE_META_COLS = [
-        'food_id', 'description', 'food_code', 'name_scientific', 
-        'food_group', 'food_subgroup', 'food_type', 'data_source',
-        'fdc_id', 'ndb_number', 'wikipedia_id', 'category',
-        'description.1', 'food_category', 'food_category_id',
-        'data_type', 'publication_date',
+        'food_id', 'description', 'food_code', 'name_scientific',
+        'food_group', 'food_subgroup', 'food_category',
+        'fdc_id', 'category', 'wikipedia_id', 'description.1',
+        'data_source', 'data_type',
         'brand_owner', 'gtin_upc', 'ingredients', 'ingredients_text',
         'serving_size', 'serving_size_unit', 'household_serving',
         'quantity', 'main_category_en', 'countries_en', 'allergens',
         'traces', 'additives_tags', 'nutriscore_grade', 'nova_group',
-        'image_url', 'image_small_url', 'image_ingredients_url', 'Total Weight (g)'
+        'image_url', 'image_small_url', 'image_ingredients_url',
+        'Total Weight (g)', 'semantic_descriptor'
     ]
     meta_cols = [c for c in REFERENCE_META_COLS if c in df.columns]
     nutrient_cols = sorted([c for c in df.columns if c not in meta_cols])
     return df[meta_cols + nutrient_cols]
+
+
+def enforce_uniform_schema(df):
+    """Ensure every Silver CSV has the exact same columns, padded with NaN if absent."""
+    APPROVED_NUTRIENTS = [
+        'Calories (kcal)', 'Protein (g)', 'Carbohydrate (g)', 'Fat (g)', 
+        'Fiber (g)', 'Sugars (g)', 'Alcohol (g)',  # kept for physics validation; dropped from CSV in build_silver.py
+        'Saturated Fat (g)', 'Monounsaturated Fat (g)', 'Polyunsaturated Fat (g)', 
+        'Trans Fat (g)', 'Omega-3 (g)', 'Omega-6 (g)', 'EPA (g)', 'DHA (g)', 'ALA (g)', 
+        'Cholesterol (mg)',
+        'Vitamin A (ug)', 'Vitamin B6 (mg)', 'Vitamin B12 (ug)', 'Vitamin C (mg)', 
+        'Vitamin D (ug)', 'Vitamin E (mg)', 'Vitamin K (ug)', 'Thiamin (mg)', 
+        'Riboflavin (mg)', 'Niacin (mg)', 'Folate (ug)', 'Pantothenic Acid (mg)', 
+        'Biotin (ug)', 'Choline (mg)',
+        'Calcium (mg)', 'Iron (mg)', 'Magnesium (mg)', 'Phosphorus (mg)', 
+        'Potassium (mg)', 'Sodium (mg)', 'Zinc (mg)', 'Copper (mg)', 
+        'Manganese (mg)', 'Selenium (ug)', 'Iodine (ug)', 'Chloride (mg)',
+        'Caffeine (mg)'
+    ]
+    for col in APPROVED_NUTRIENTS:
+        if col not in df.columns:
+            df[col] = np.nan
+    return df
+
+
+def validate_physics(df, source_name='unknown'):
+    """
+    Run data integrity checks. Returns (clean_df, flagged_df).
+    Does NOT discard rows — caller decides what to do with flagged rows.
+    
+    Checks:
+    1. Upper-bound macro: Protein + Fat + Carbs > 105g per 100g -> flag
+       (Fiber is NOT added because USDA 'Carbohydrate by difference' already includes it)
+    2. Calorie cross-check: Atwater estimate vs stated kcal, >25% deviation -> flag
+    """
+    flags = pd.Series(False, index=df.index)
+    flag_reasons = pd.Series('', index=df.index, dtype=str)
+    
+    # Check 1: Upper-bound macro sum (P + F + C only — Fiber is a subset of Carbs)
+    macro_cols = ['Protein (g)', 'Fat (g)', 'Carbohydrate (g)']
+    present_macros = [c for c in macro_cols if c in df.columns]
+    
+    if len(present_macros) == 3:
+        macro_sum = df[present_macros].sum(axis=1, min_count=1)
+        upper_breach = macro_sum > 105
+        flags = flags | upper_breach
+        flag_reasons = flag_reasons.where(~upper_breach, 
+            flag_reasons + 'MACRO_SUM(P+F+C)=' + macro_sum.round(1).astype(str) + 'g>105g; ')
+    
+    # NOTE: Atwater calorie cross-check removed — 100% of flagged rows were legitimate
+    # foods (alcohol, vinegar, baking powder, high-inulin veg) hitting known edge cases
+    # in the Atwater formula. No genuine data errors were found.
+    
+    flagged_df = df[flags].copy()
+    flagged_df['flag_reason'] = flag_reasons[flags]
+    clean_df = df[~flags].copy()
+    
+    n_flagged = len(flagged_df)
+    n_total = len(df)
+    print(f"  [{source_name}] Physics validation: {n_flagged}/{n_total} rows flagged "
+          f"({n_flagged/n_total*100:.1f}%)")
+    
+    return clean_df, flagged_df

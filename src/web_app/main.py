@@ -18,7 +18,6 @@ from src.calculator.engine import (
     load_data, calculate_bmr, calculate_tdee_simple, get_micronutrients
 )
 from src.calculator.db_interface import FoodDatabase
-from src.optimizer.optimizer import NutritionOptimizer
 from src.optimizer.genetic_optimizer import GeneticMealOptimizer
 
 from src.web_app.models import UserProfile, CalculationResult, NutrientRange, OptimizationResult
@@ -32,16 +31,15 @@ templates = Jinja2Templates(directory="src/web_app/templates")
 try:
     NUTRITION_DATA = load_data(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../data/config/nutrition_data.json')))
     FOOD_DB = FoodDatabase()
-    parquet_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../data/processed/real_food_nutrition.parquet'))
-    if os.path.exists(parquet_path):
-        print(f"Loading database from {parquet_path}...")
-        FOOD_DB.load_from_parquet(parquet_path)
+    
+    csv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../nutrition_data_pipeline/data/reference/gold/reference_unified_gold.csv'))
+    if os.path.exists(csv_path):
+        print(f"Loading database from {csv_path}...")
+        FOOD_DB.load_from_csv(csv_path)
     else:
         print("Warning: Real database not found, falling back to mock.")
         FOOD_DB.load_mock_data()
         
-    OPTIMIZER = NutritionOptimizer(FOOD_DB.get_all_foods())
-    
     from src.utils.store_lookup import StoreProductLookup
     STORE_LOOKUP = StoreProductLookup()
     print(f"Store lookup initialized with {len(STORE_LOOKUP.get_covered_canonical_ids())} canonical items coverage")
@@ -49,7 +47,6 @@ except Exception as e:
     print(f"Startup Error: {e}")
     FOOD_DB = FoodDatabase()
     FOOD_DB.load_mock_data()
-    OPTIMIZER = NutritionOptimizer(FOOD_DB.get_all_foods())
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

@@ -66,6 +66,13 @@ def load_foodb():
     ).reset_index()
     
     foodb_df = foods.merge(foodb_pivot, on='food_id', how='inner')
+    
+    # FooDB BUG FIX: FooDB's raw data labels Energy as 'kcal' but values are actually kJ.
+    # Verified against 10 known foods: FooDB values / 4.184 = correct kcal (e.g. Banana: 371/4.184 = 88.7 kcal).
+    # Fix the column name so downstream standardization handles it correctly.
+    if 'Energy (KCAL_100G)' in foodb_df.columns:
+        foodb_df = foodb_df.rename(columns={'Energy (KCAL_100G)': 'Energy (KJ_100G)'})
+    
     foodb_df['data_source'] = 'FooDB'
     foodb_df['food_id'] = foodb_df['food_id'].astype(str)
     

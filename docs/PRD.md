@@ -35,6 +35,122 @@
 
 ---
 
+## Detailed Feature Specifications
+
+### 1. Complete Nutritional Optimization
+**Goal:** Generate shopping lists that satisfy ALL nutritional requirements with no deficiencies.
+
+| Requirement | Description |
+|-------------|-------------|
+| Caloric Targets | Meet daily caloric needs based on TDEE calculations |
+| Macronutrients | Protein, carbohydrates, fats within healthy AMDR ranges |
+| Micronutrients | All vitamins (A, B-complex, C, D, E, K) at RDA/AI levels |
+| Minerals | Iron, calcium, zinc, magnesium, potassium, etc. |
+| Upper Limits | Respect Tolerable Upper Intake Levels (UL) to prevent toxicity |
+| Fiber & Water | Adequate fiber intake and hydration considerations |
+
+**Implementation:** Mathematical optimization with constraints for minimum RDA and maximum UL values.
+
+---
+
+### 2. Local Store Integration
+**Goal:** Only recommend products actually available at the user's local supermarket in purchasable quantities.
+
+| Requirement | Description |
+|-------------|-------------|
+| Store Catalog Sync | Integration with UK supermarket APIs (Tesco, Sainsbury's, etc.) |
+| Real-time Availability | Check product stock before recommending |
+| Discrete Portions | Recommend whole units (1 pack, 2 cans) not fractional amounts |
+| Package Sizes | Account for actual package sizes (500g bag, 6-pack) |
+| Location-based | Filter to user's nearest store or delivery area |
+
+**Implementation:** Store API integrations, portion size configurations, integer constraints for discrete quantities.
+
+---
+
+### 3. Price-Aware Optimization (KEY DIFFERENTIATOR)
+**Goal:** Minimize cost while meeting nutritional requirements, with cross-supermarket comparison.
+
+| Requirement | Description |
+|-------------|-------------|
+| Budget Constraints | User can set weekly/monthly budget limits |
+| Price Optimization | Objective function minimizes total cost |
+| **Cross-Store Comparison** | Compare basket cost across Tesco, Asda, Sainsbury's, Lidl, Aldi |
+| Value Analysis | Cost-per-nutrient efficiency rankings |
+| Deal Integration | Factor in current offers and loyalty card prices |
+| Price History | Track prices for smart timing suggestions |
+
+**Implementation:** Cost coefficients in objective function, budget as inequality constraint, price data from Trolley.co.uk or store APIs.
+
+---
+
+### 4. Goal-Based Recommendations
+**Goal:** Tailor nutrition to specific health and fitness objectives with scientifically-backed guidance.
+
+| Goal | Nutritional Adjustments |
+|------|------------------------|
+| **Weight Loss** | Caloric deficit (10-20%), higher protein (1.6-2.2g/kg), adequate fiber |
+| **Muscle Building** | Caloric surplus (10-20%), high protein (1.6-2.2g/kg), creatine support |
+| **Maintenance** | TDEE-matched calories, balanced macros within AMDR |
+| **Athletic Performance** | Higher carbs, timing optimization, electrolyte focus |
+| **General Health** | Balanced approach with emphasis on micronutrient diversity |
+
+**Implementation:** Goal-specific constraint modifiers, evidence-based multipliers from sports nutrition research.
+
+> [!NOTE]
+> All recommendations must be based on peer-reviewed scientific literature. The system should cite sources and never make unsubstantiated health claims.
+
+---
+
+### 5. Quick Product Switches
+**Goal:** Allow easy product substitutions where nutritional impact is minimal.
+
+| Requirement | Description |
+|-------------|-------------|
+| Similarity Detection | Identify nutritionally-equivalent alternatives |
+| One-Click Swaps | Easy UI to swap e.g., "Salmon → Haddock" |
+| Impact Preview | Show how swap affects nutrition before confirming |
+| Category Grouping | Group switchable items (white fish, leafy greens, etc.) |
+| Preference Memory | Remember switches for future recommendations |
+
+**Implementation:** Nutritional similarity scoring (cosine similarity on nutrient vectors), constraint re-validation on swap.
+
+---
+
+### 6. Adaptive Learning System
+**Goal:** Learn user preferences to reduce manual adjustments over time.
+
+| Requirement | Description |
+|-------------|-------------|
+| Swap Tracking | Record every product swap the user makes |
+| Preference Modeling | Build user taste profile from choices |
+| Diversity Injection | Ensure variety while respecting preferences |
+| Feedback Loop | Explicit ratings and implicit behavior signals |
+| Cold Start | Sensible defaults for new users with preference questionnaire |
+
+**Implementation:** Collaborative filtering, preference embeddings, reinforcement learning for long-term satisfaction.
+
+---
+
+### 7. Dietary Requirement Filters
+**Goal:** Accommodate all major dietary restrictions and preferences.
+
+| Filter | Foods Excluded |
+|--------|---------------|
+| **Vegetarian** | Meat, poultry, fish (allows dairy, eggs) |
+| **Vegan** | All animal products |
+| **Pescatarian** | Meat, poultry (allows fish) |
+| **Kosher** | Non-kosher meats, shellfish, mixing meat/dairy |
+| **Halal** | Pork, non-halal meats, alcohol |
+| **Gluten-Free** | Wheat, barley, rye, contaminated oats |
+| **Lactose-Free** | Milk, cheese, cream (allows lactose-free alternatives) |
+| **Nut-Free** | All tree nuts and peanuts |
+| **Low-Sodium** | High-sodium processed foods |
+
+**Implementation:** Filter constraints in optimizer, food database tagging, certification verification.
+
+---
+
 ## Core Features (Phased)
 
 ### Phase 1: Foundation (Current State)
@@ -240,7 +356,7 @@ src/
 ## Next Steps
 
 ### Immediate (This Week)
-1. [ ] Update MISSION.md with refined 5-pillar vision
+1. [x] Merged MISSION.md and refined 5-pillar vision
 2. [ ] Research Trolley.co.uk API or alternative price sources
 3. [ ] Design household/member database schema
 
