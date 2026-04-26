@@ -67,3 +67,6 @@ models/
 
 # Pipeline data (Multi-GB datasets)
 nutrition_data_pipeline/data/
+
+# Generated docs (auto-built from markdown, do not commit)
+docs/*.html
